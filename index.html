@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>50 cent</title>
+	<link rel="stylesheet" href="styles/main.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script src="js/CurrencyConverter.js"></script>
+	<script src="js/Index.js"></script>
+	<!--<script type="text/javascript">(function() {
+		if (window.pluso) {return};
+		var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+		s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+		s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://x.pluso.ru/pluso-x.js';
+		var h=d[g]('body')[0];
+		h.appendChild(s);
+	})();
+	</script>-->
+	<script>
+		$(document).ready(function () {
+			new Index();
+		});
+	</script>
+
+</head>
+<body>
+	<div id="container">
+		<div id = "header">
+			<span class="headerTitle">50 CENT</span>
+			<a id="ruButton"> IN RUSSIAN ROUBLESS </a>
+			<span class="headerTextOr"> or </span>
+			<a id="byButton"> BELARUSIAN ROUBLES </a>
+			<span class="headerTextOr"> or </span>
+			<a id="uaButton"> UKRANIAN HRYVNAS </a>
+		</div>
+
+		<div id="content">
+			<div id="portrait">
+				<img src="assets/50cent.jpg"/>
+			</div>
+			<div id="price">0</div>
+			<div id="currency">0</div>
+		</div>
+
+		<footer>
+
+		</footer>
+		<!--<div class="pluso-engine" pluso-sharer={"buttons":"vkontakte,odnoklassniki,facebook,twitter,google,moimir,email,print,more","style":{"size":"big","shape":"square","theme":"theme03","css":""},"orientation":"horizontal","multiline":false}  data-title="%D0%BE%D0%B1%D0%BC%D0%B5%D0%BD" data-description="%D0%A2%D0%B5%D1%81%D1%82%20%D0%BE%D0%BF%20%D0%BE%D0%BF" data-url="http%3A%2F%2Filyaandreyev.com%2F50Cent%2F" data-image="http%3A%2F%2Fwww.last-video.com%2Fwp-content%2Fuploads%2F2013%2F11%2Fsuperbe-image-de-poissons-sous-l-eau.jpg"></div>-->
+	</div>
+</body>
+</html>
