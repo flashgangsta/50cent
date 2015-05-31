@@ -9,9 +9,11 @@ function CurrencyConverter(restOfCurrencyCodes) {
 	var currenciesFormattedForRequest = [];
 	var currency;
 	var request = new XMLHttpRequest();
+	var urlRequest;
 
 	function sendRequest() {
-		request.open("get", apiURL.replace("%currencies%", currenciesFormattedForRequest.toString()), true);
+		urlRequest =  apiURL.replace("%currencies%", currenciesFormattedForRequest) + "&r=" + new Date().getTime();
+		request.open("get", urlRequest, true);
 		request.send();
 	}
 

@@ -13,23 +13,30 @@ function SoundController() {
 
 	this.playSound = function(soundID) {
 		var soundsList = soundID === SoundController.SHOT ? shootSounds : reloadSounds;
-		var index = MathUtil.getRandomInt(0, soundsList.length - 1);
+		var index = getRandomInt(0, soundsList.length - 1);
 		var audio = soundsList[index].cloneNode();
 		audio.addEventListener('ended', onSoundEnded);
 		audio.play();
 	}
 
 	this.playReload = function() {
-		var index = MathUtil.getRandomInt(0, reloadSounds.length - 1);
+		var index = getRandomInt(0, reloadSounds.length - 1);
 		var audio = shootSounds[index].cloneNode();
 		audio.addEventListener('ended', onSoundEnded);
 		audio.play();
+	}
+
+	function getRandomInt(min, max) {
+		min = parseInt(min);
+		max = parseInt(max);
+		return parseInt(min + (max - min + 1) * Math.random());
 	}
 
 	function loadSounds(paths, list) {
 		for(var i = 0; i < paths.length; i++) {
 			var audio = document.createElement('audio');
 			var path = 'assets/sounds/' + paths[i] + '.mp3';
+			console.log(path);
 			audio.autoplay = false;
 			audio.src = path;
 			audio.addEventListener("canplay", function(event) {

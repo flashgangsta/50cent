@@ -24,6 +24,9 @@ $(document).ready(function(){
 		var content = $("#content");
 		var trash = $("#trash");
 		var footer = $("#footer");
+		var money = $("money");
+		var portrait = $("#portrait");
+		var changingPriceMotion = false;
 
 		main.hide()
 
@@ -63,11 +66,45 @@ $(document).ready(function(){
 			currentCurrencyButton.className = CLASS_NO_LINK;
 			updateButtonsClickEventListener(currentCurrencyButton, false);
 
-			updateCurrency();
-			alignItems();
+			soundController.playSound(SoundController.RELOAD);
+
+			changingPriceMotion = true;
+
+			var motionDuration = 200;
+
+			price.fadeOut(motionDuration, "swing");
+			currency.delay(motionDuration / 2).fadeOut(motionDuration, "swing", function() {
+				price.fadeIn({
+					duration: motionDuration,
+					easing: "swing",
+					start: function() {
+						changingPriceMotion = false;
+						updateCurrency();
+						alignItems();
+					}
+				})
+				currency.delay(motionDuration / 2).fadeIn({
+					duration: motionDuration,
+					easing: "swing",
+					start: function () {
+						alignItems();
+					},
+					complete: function() {
+						var time = 100;
+						var shoots = 4;
+						var delay = 400;
+						for(var i = 0; i < shoots; i++) {
+							setTimeout(soundController.playSound, time, SoundController.SHOT);
+							time += delay;
+						}
+					}
+
+				});
+			});
 		}
 
 		function updateCurrency() {
+			if(changingPriceMotion) return;
 			switch (currentCurrencyButton.id.substring(2, 0)) {
 				case "ru": {
 					price.text(Math.round(Number(currentCurrencyRate.RUB) / 2));
@@ -131,6 +168,8 @@ $(document).ready(function(){
 
 		currencyConverter = new CurrencyConverter("BYR", "RUB", "UAH");
 		document.addEventListener("CURRENCY_EXCHANGED", onCurrencyResponse);
+
+		var soundController = new SoundController();
 	}
 
 	new Index();
