@@ -8,7 +8,7 @@ html, body {
     height: 100%;
     margin: 0px;
     padding: 0px;
-    background: black;
+    background-color: #000000;
     overflow: hidden;
     font-family: "HelveticaNeue-CondensedBold";
 }
@@ -161,4 +161,13 @@ html, body {
 
 #halloMailto:hover {
     color: #ffffff;
+}
+
+#bullets {
+    position: absolute;
+    z-index: 6;
+}
+
+.bulletHole {
+    position: absolute;
 }

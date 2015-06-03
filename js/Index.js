@@ -23,10 +23,12 @@ $(document).ready(function () {
 	var content = $("#content");
 	var trash = $("#trash");
 	var footer = $("#footer");
-	var money = $("money");
 	var portrait = $("#portrait");
 	var changingPriceMotion = false;
 	var soundController = new SoundController();
+	var bullets = new Bullets();
+	var bulletsHolder = $("#bullets");
+	var bulletsMargin;
 
 	main.hide();
 
@@ -81,6 +83,7 @@ $(document).ready(function () {
 					changingPriceMotion = false;
 					updateCurrency();
 					alignItems();
+					bulletsHolder.empty();
 				}
 			});
 			currency.delay(motionDuration / 2).fadeIn({
@@ -129,22 +132,28 @@ $(document).ready(function () {
 
 	function alignItems() {
 		header.css({left: Math.round((stage.width() - header.width()) / 2)});
-		price.css({top: 65});
-		trash.css({top: price.position().top + 46});
 
 		if (price.text().length === 2) {
-			price.css({fontSize: "150pt"});
-			price.css({top: 65});
+			price.css({
+				fontSize: "150pt",
+				top: 65
+			});
+			bulletsHolder.css({top:115});
 			currency.css({top: price.position().top + price.height() - 37});
 
 		} else if (price.text().length === 3) {
 
 		} else if (price.text().length === 4) {
-			price.css({fontSize: "75pt"});
-			price.css({top: 130});
+			bulletsMargin = 30;
+			price.css({
+				fontSize: "75pt",
+				top: 130});
+			bulletsHolder.css({top:130});
 			currency.css({top: price.position().top + price.height() - 15});
 		}
 
+		trash.css({top: price.position().top + 46});
+		trash.hide();
 
 		content.css({left: header.position().left + 15});
 		currency.css({left: Math.round((price.width() - currency.width()) / 2)});
@@ -161,7 +170,7 @@ $(document).ready(function () {
 	constructor();
 	window.onresize = alignItems;
 
-	currencyConverter = new CurrencyConverter("BYR", "RUB", "UAH");
+	currencyConverter = new CurrencyConverter("BYR", "RUB", "UAH", "GPB", "NOK", "SWE", "CHF", "RON", "HUF", "CAD", "AUD", "MXN", "ARS", "BRL", "JPY", "CNY", "VND", "THB");
 	document.addEventListener("CURRENCY_EXCHANGED", onCurrencyResponse);
 
 
@@ -177,6 +186,12 @@ $(document).ready(function () {
 	}
 
 	function makeShot() {
+		var bullet = bullets.getBullet();
+		bullet.css({
+			top: MathUtil.getRandomInt(0, currency.position().top + currency.height() - 100),
+			left: MathUtil.getRandomInt(20, price.height() - 100)
+		});
+		bulletsHolder.append(bullet);
 		soundController.playSound(SoundController.SHOT);
 	}
 

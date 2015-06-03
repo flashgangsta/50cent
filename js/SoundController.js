@@ -2,7 +2,6 @@
  * Created by sergeykrivtsov on 5/27/15.
  */
 function SoundController() {
-
 	var shootSounds = [];
 	var reloadSounds = [];
 	var shootPaths = ["gun01", 'gun02', 'gun03', 'gun04'];

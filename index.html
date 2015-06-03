@@ -3,7 +3,10 @@
 	<head lang="en">
 		<meta charset="UTF-8">
 		<title>50 cent</title>
+
+		<link rel="stylesheet" href="styles/bootstrap.min.css">
 		<link rel="stylesheet" href="styles/main.css">
+
 		<meta property="og:title" content="Convert 50 cent"/>
 		<meta property="og:description"
 			  content="Now you can convert 50 cent in Russian rouble, Belarusian rouble or Ukranian hryvna. Money, money. Yo! http://convert50cent.com"/>
@@ -48,6 +51,7 @@
 				<a id="byButton"><span id="by1">BELARUSIAN RUB</span><span id="by2">LES</span></a>
 				<span class="textOr"> or </span>
 				<a id="uaButton"><span id="ua1">UKRANIAN</span><span id="ua2"> HRYVNAS</span></a>
+
 			</div>
 
 			<div id="content">
@@ -57,6 +61,7 @@
 				<div id="trash">
 					<img src="assets/trash.png" srcset="assets/trash_x2.png 2x">
 				</div>
+				<div id="bullets"></div>
 				<div id="price">0</div>
 				<div id="currency">0</div>
 			</div>
@@ -73,10 +78,13 @@
 			</div>
 		</div>
 
+
 		<script src="js/flashgangsta/utils/MathUtil.js"></script>
 		<script src="js/jquery-2.1.4.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script src="js/CurrencyConverter.js"></script>
 		<script src="js/Index.js"></script>
 		<script src="js/SoundController.js"></script>
+		<script src="js/Bullets.js"></script>
 	</body>
 </html>
