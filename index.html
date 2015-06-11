@@ -2,88 +2,29 @@
 <html>
 	<head lang="en">
 		<meta charset="UTF-8">
-		<title>50 cent</title>
-
-		<link rel="stylesheet" href="styles/bootstrap.min.css">
-		<link rel="stylesheet" href="styles/main.css">
-
-		<meta property="og:title" content="Convert 50 cent"/>
-		<meta property="og:description"
-			  content="Now you can convert 50 cent in Russian rouble, Belarusian rouble or Ukranian hryvna. Money, money. Yo! http://convert50cent.com"/>
-		<meta property="og:url" content="http://convert50cent.com"/>
-		<meta property="og:image" content="assets/share.jpg"/>
-
-		<meta name="title" content="Convert 50 cent"/>
-		<meta name="description"
-			  content="Now you can convert 50 cent in Russian rouble, Belarusian rouble or Ukranian hryvna. Money, money. Yo! http://convert50cent.com"/>
-		<link rel="image_src" href="assets/share.jpg"/>
+		<meta name="keywords" content="мета-теги, поисковые системы, ключевые слова"> <!--TODO: заполнить метадги-->
+		<meta name="description" content="краткое описание"> <!--TODO: заполнить метадги-->
+		<title>HOW THEY CALL 50 CENT</title>
+		<link rel="stylesheet" href="styles/styles.css">
 	</head>
 	<body>
-		<!--<script type="text/javascript">(function (w, doc) {
-			if (!w.__utlWdgt) {
-				w.__utlWdgt = true;
-				var d = doc, s = d.createElement('script'), g = 'getElementsByTagName';
-				s.type = 'text/javascript';
-				s.charset = 'UTF-8';
-				s.async = true;
-				s.src = ('https:' == w.location.protocol ? 'https' : 'http') + '://w.uptolike.com/widgets/v1/uptolike.js';
-				console.log(s.src);
-				var h = d[g]('body')[0];
-				h.appendChild(s);
-			}
-		})(window, document);
-		</script>
-		<div data-mobile-view="true" data-share-size="20" data-like-text-enable="false" data-background-alpha="0.0"
-			 data-pid="1377825" data-mode="share" data-background-color="#ffffff" data-share-shape="rectangle"
-			 data-share-counter-size="12" data-icon-color="#ffffff" data-mobile-sn-ids="fb.vk.tw.wh.ok.gp."
-			 data-text-color="#000000" data-buttons-color="#ffffff" data-counter-background-color="#ffffff"
-			 data-share-counter-type="disable" data-orientation="horizontal" data-following-enable="false"
-			 data-sn-ids="fb.tw.gp.vk.ok.tb.ln." data-preview-mobile="false" data-selection-enable="true"
-			 data-exclude-show-more="false" data-share-style="7" data-counter-background-alpha="1.0"
-			 data-top-button="false" class="uptolike-buttons"></div>-->
-		<div id="container">
 
-			<div id="header">
-				<span class="headerTitle">50 CENT </span>
-				<span style="color:#ffffff"> IN </span>
-				<a id="ruButton"><span id="ru1">RUSS</span><span id="ru2">IAN RU</span><span id="ru3">BLES</span></a>
-				<span class="textOr"> or </span>
-				<a id="byButton"><span id="by1">BELARUSIAN RUB</span><span id="by2">LES</span></a>
-				<span class="textOr"> or </span>
-				<a id="uaButton"><span id="ua1">UKRANIAN</span><span id="ua2"> HRYVNAS</span></a>
+		<video autoplay loop poster="assets/bitmaps/bgVideoPoster.jpg" id="bgVideo">
+			<source src="assets/video/bgVideo.webm" type="video/webm">
+			<source src="assets/video/bgVideo.mp4" type="video/mp4">
+		</video>
 
-			</div>
 
-			<div id="content">
-				<div id="portrait">
-					<img src="assets/50cent.jpg" srcset="assets/50cent_x2.jpg 2x">
-				</div>
-				<div id="trash">
-					<img src="assets/trash.png" srcset="assets/trash_x2.png 2x">
-				</div>
-				<div id="bullets"></div>
-				<div id="price">0</div>
-				<div id="currency">0</div>
-			</div>
-
-			<div id="footer">
-				<div id="footerSeporator"></div>
-				<div id="footerContent">
-					<a href="" onclick="alert('Share this page')">
-						<img id='sharingContent' src="assets/sharing.png" srcset="assets/sharing_x2.png 2x">
-					</a>
-					<span class="textOr"> or </span>
-					<a id='halloMailto' href="mailto:hallo@50centexchange.org">hallo@50centexchange.org</a>
-				</div>
-			</div>
+		<div id="footer">
+			<a href="mailto:HELLO@HOWTHEYCALL50CENT.ORG">HELLO@HOWTHEYCALL50CENT.ORG</a>
+			<img src="assets/bitmaps/socials.png" onclick="function(){alert('go to sharing'); return;}">
 		</div>
 
 
 		<script src="js/flashgangsta/utils/MathUtil.js"></script>
 		<script src="js/jquery-2.1.4.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
 		<script src="js/CurrencyConverter.js"></script>
-		<script src="js/Index.js"></script>
+		<script src="js/Main.js"></script>
 		<script src="js/SoundController.js"></script>
 		<script src="js/Bullets.js"></script>
 	</body>
