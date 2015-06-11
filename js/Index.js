@@ -3,19 +3,11 @@
  */
 
 $(document).ready(function () {
-	var CURRENCY_ID_RU = "ru";
-	var CURRENCY_ID_BY = "by";
-	var CURRENCY_ID_UA = "ua";
-	var CURRENCY_BUTTON_POSTFIX = "Button";
-	var currentCurrencyID = CURRENCY_ID_RU;
-	var CLASS_LINK = "currencyButtonEnabled";
-	var CLASS_NO_LINK = "currencyButtonDisabled";
-	var currencyIDs = [CURRENCY_ID_RU, CURRENCY_ID_BY, CURRENCY_ID_UA];
-	var currencyButtons = [];
-	var currentCurrencyButton;
-	var currencyConverter;
+	var currencyConverter = new CurrencyConverter();
 	var currentCurrencyRate = {};
 	var stage = $(window);
+	var langDropDown = $("#langDropDown");
+	var langDropDownList = $("#langDropDownList");
 	var main = $("#container");
 	var price = $("#price");
 	var currency = $("#currency");
@@ -24,55 +16,47 @@ $(document).ready(function () {
 	var trash = $("#trash");
 	var footer = $("#footer");
 	var portrait = $("#portrait");
+	var bulletsHolder = $("#bullets");
 	var changingPriceMotion = false;
 	var soundController = new SoundController();
 	var bullets = new Bullets();
-	var bulletsHolder = $("#bullets");
 	var bulletsMargin;
+	var currentCurrency;
 
 	main.hide();
 
-	function constructor() {
-		var currencyID;
-		var currencyButton;
-
-		for (var i = 0; i < currencyIDs.length; i++) {
-			currencyID = currencyIDs[i];
-			currencyButton = document.getElementById(currencyID + CURRENCY_BUTTON_POSTFIX);
-			currencyButtons.push(currencyButton);
-
-			if (currentCurrencyID === currencyID) {
-				currentCurrencyButton = currencyButton;
-				currentCurrencyButton.className = CLASS_NO_LINK;
-			} else {
-				currencyButton.className = CLASS_LINK;
-				updateButtonsClickEventListener(currencyButton, true);
-			}
+	function buildDropdown() {
+		var currenciesList = currencyConverter.getCurrenciesList();
+		var currenciesLength = currenciesList.length;
+		var currency;
+		currentCurrency = currenciesList[0];
+		langDropDown.text(currentCurrency);
+		for(var i = 0; i < currenciesLength; i++) {
+			var li = $("<li role='presentation'>");
+			var item = $("<a role='menuitem' href='#'>");
+			currency = currenciesList[i];
+			item.click(onCurrencyChanged);
+			item.attr("tabindex", i);
+			item.attr("id", currency);
+			item.text(currency);
+			li.append(item);
+			langDropDownList.append(li);
 		}
+		$('#' + currenciesList[0]).hide();
 	}
 
-	/**
-	 *
-	 * @param target
-	 * @param add is Boolean false for remove, true for add
-	 */
+	function onCurrencyChanged(event) {
+		event.preventDefault();
+		var target = $(this);
+		currentCurrency = target.text();
+		target.hide();
+		$('#' + langDropDown.text()).show();
+		langDropDown.text(currentCurrency);
 
-	function updateButtonsClickEventListener(target, add) {
-		target[(add ? "add" : "remove") + "EventListener"]("click", onLinkClicked);
-	}
-
-	function onLinkClicked(event) {
-		currentCurrencyButton.className = CLASS_LINK;
-		updateButtonsClickEventListener(currentCurrencyButton, true);
-		currentCurrencyButton = event.currentTarget;
-		currentCurrencyButton.className = CLASS_NO_LINK;
-		updateButtonsClickEventListener(currentCurrencyButton, false);
-
+		var motionDuration = 200;
 		soundController.playSound(SoundController.RELOAD);
 
 		changingPriceMotion = true;
-
-		var motionDuration = 200;
 
 		price.fadeOut(motionDuration, "swing");
 		currency.delay(motionDuration / 2).fadeOut(motionDuration, "swing", function () {
@@ -99,26 +83,9 @@ $(document).ready(function () {
 
 	function updateCurrency() {
 		if (changingPriceMotion) return;
-		switch (currentCurrencyButton.id.substring(2, 0)) {
-			case "ru":
-			{
-				price.text(Math.round(Number(currentCurrencyRate.RUB) / 2));
-				currency.text("RUBLES");
-				break;
-			}
-			case "by":
-			{
-				price.text(Math.round(Number(currentCurrencyRate.BYR) / 2));
-				currency.text("RUBLES");
-				break;
-			}
-			case "ua":
-			{
-				price.text(Math.round(Number(currentCurrencyRate.UAH) / 2));
-				currency.text("HRIVNAS");
-				break;
-			}
-		}
+		price.text(Math.round(Number(currentCurrencyRate[currentCurrency]) / 2));
+		currency.text(currentCurrency);
+		alignItems();
 	}
 
 	function onCurrencyResponse(event) {
@@ -133,23 +100,33 @@ $(document).ready(function () {
 	function alignItems() {
 		header.css({left: Math.round((stage.width() - header.width()) / 2)});
 
-		if (price.text().length === 2) {
-			price.css({
-				fontSize: "150pt",
-				top: 65
-			});
-			bulletsHolder.css({top:115});
-			currency.css({top: price.position().top + price.height() - 37});
+		switch(price.text().length) {
+			case 1:
 
-		} else if (price.text().length === 3) {
+				break;
+			case 2:
+				price.css({
+					fontSize: "150pt",
+					top: 65
+				});
+				bulletsHolder.css({top:115});
+				currency.css({top: price.position().top + price.height() - 37});
+				break;
+			case 3:
 
-		} else if (price.text().length === 4) {
-			bulletsMargin = 30;
-			price.css({
-				fontSize: "75pt",
-				top: 130});
-			bulletsHolder.css({top:130});
-			currency.css({top: price.position().top + price.height() - 15});
+				break;
+			case 4:
+				bulletsMargin = 30;
+				price.css({
+					fontSize: "75pt",
+					top: 130});
+				bulletsHolder.css({top:130});
+				currency.css({top: price.position().top + price.height() - 15});
+				break;
+			case 5:
+
+				break;
+
 		}
 
 		trash.css({top: price.position().top + 46});
@@ -166,13 +143,6 @@ $(document).ready(function () {
 			top: headerBottom + Math.round((middleArea - 374) / 2)
 		});
 	}
-
-	constructor();
-	window.onresize = alignItems;
-
-	currencyConverter = new CurrencyConverter("BYR", "RUB", "UAH", "GPB", "NOK", "SWE", "CHF", "RON", "HUF", "CAD", "AUD", "MXN", "ARS", "BRL", "JPY", "CNY", "VND", "THB");
-	document.addEventListener("CURRENCY_EXCHANGED", onCurrencyResponse);
-
 
 	function startShooting() {
 		var time = 150;
@@ -194,5 +164,11 @@ $(document).ready(function () {
 		bulletsHolder.append(bullet);
 		soundController.playSound(SoundController.SHOT);
 	}
+
+	buildDropdown();
+	window.onresize = alignItems;
+
+	document.addEventListener("CURRENCY_EXCHANGED", onCurrencyResponse);
+	currencyConverter.requestRates();
 
 });
