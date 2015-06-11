@@ -1,0 +1,53 @@
+@font-face {
+    font-family: "Impact-Regular";
+    src: url("../assets/fonts/ImactRegular.ttf");
+}
+
+@font-face {
+    font-family: "Underground-Regular";
+    src: url("../assets/fonts/08Underground-Regular.ttf");
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    font-family: Underground-Regular;
+}
+
+video#bgVideo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(../assets/bitmaps/bgVideoPoster.jpg) no-repeat;
+    background-size: cover;
+}
+
+#footer {
+    position: absolute;
+    width: 100%;
+    bottom: 40px;
+    font-family: Impact-Regular;
+    text-align: center;
+}
+
+#footer a {
+    color: #ffffff;
+    text-decoration: none;
+    vertical-align: top;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+#footer a:hover {
+    color: #000000;
+}
