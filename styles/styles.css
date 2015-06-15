@@ -15,7 +15,10 @@ html, body {
     padding: 0px;
     overflow: hidden;
     font-family: Underground-Regular;
+    color: #ffffff;
 }
+
+/* for low resolution display */
 
 video#bgVideo {
     position: fixed;
@@ -28,26 +31,94 @@ video#bgVideo {
     z-index: -100;
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-    background: url(../assets/bitmaps/bgVideoPoster.jpg) no-repeat;
+    background: url(../assets/bitmaps/bgVideoPoster.jpg) no-repeat center center;
     background-size: cover;
 }
 
 #footer {
     position: absolute;
     width: 100%;
+    height: auto;
     bottom: 40px;
     font-family: Impact-Regular;
     text-align: center;
 }
 
-#footer a {
+#footer a,
+#header a,
+#soundControllPanel a,
+#currencyButtonPrefix {
     color: #ffffff;
     text-decoration: none;
-    vertical-align: top;
-    margin-right: 10px;
-    margin-top: 2px;
 }
 
-#footer a:hover {
-    color: #000000;
+#footer a:hover,
+#header a:hover,
+#soundControllPanel a:hover {
+    color: bisque;
+}
+
+.customUnderline {
+    text-decoration: none;
+    background: url(../assets/bitmaps/dotted_line.png) repeat-x 100% 100%;
+    padding-bottom: 2px;
+    white-space: nowrap;
+}
+
+#header a:hover {
+
+}
+
+#footer img {
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+#header {
+    position: fixed;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    top: 35px;
+    font-size: 24px;
+}
+
+#header img {
+    vertical-align: middle;
+    margin: 0 15px 0 15px;
+}
+
+#soundControllPanel {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    bottom: 100px;
+    text-align: center;
+    padding: 0px 10px 0px 10px;
+    word-wrap: normal;
+    display: inline-block;
+    word-spacing: 12px;
+    font-size: 18px;
+}
+
+#soundControllPanel a {
+    word-spacing: normal;
+}
+
+#sharingPanel {
+    cursor: pointer;
+}
+
+/* for high resolution display */
+
+@media  only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (min-device-pixel-ratio: 2) {
+    .customUnderline {
+        text-decoration: none;
+        background: url(../assets/bitmaps/dotted_line_x2.png) repeat-x 100% 100%;
+        padding-bottom: 2px;
+        white-space: nowrap;
+    }
 }
