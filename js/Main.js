@@ -3,6 +3,9 @@
  */
 
 $(document).ready(function () {
+	console.log("DocumentReady")
 	var body = $('body');
-
+	var header = new Header();
+	var soundController = new SoundController();
+	var currencySelector = new CurrencySelector();
 });

@@ -6,6 +6,10 @@ function SoundController() {
 	var reloadSounds = [];
 	var shootPaths = ["gun01", 'gun02', 'gun03', 'gun04'];
 	var reloadPaths = ["reload01", 'reload02'];
+	var musicSwitcher = $("#musicSwitcher");
+	var shootingSwitcher = $("#shootingSwitcher");
+	var musicToggle = localStorage.musicToggle || "on";
+	var shootingToggle = localStorage.shootingToggle || "on";
 
 	SoundController.SHOT = "shot";
 	SoundController.RELOAD = "reload";
@@ -47,4 +51,27 @@ function SoundController() {
 
 	loadSounds(shootPaths, shootSounds);
 	loadSounds(reloadPaths, reloadSounds);
+
+
+	musicSwitcher.on("click", toggleMusicSwitcherHandler);
+	shootingSwitcher.on("click", toggleShootingSwitcher);
+
+	function toggleMusicSwitcherHandler(event) {
+		musicToggle = musicToggle === "on" ? "off" : "on";
+		localStorage.musicToggle = musicToggle;
+		setSoundControllers();
+	}
+
+	function toggleShootingSwitcher(event) {
+		shootingToggle = shootingToggle === "on" ? "off" : "on";
+		localStorage.shootingToggle = shootingToggle;
+		setSoundControllers();
+	}
+
+	function setSoundControllers() {
+		musicSwitcher.text("Music " + musicToggle);
+		shootingSwitcher.text("Shooting " + shootingToggle);
+	}
+
+	setSoundControllers();
 }

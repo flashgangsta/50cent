@@ -75,17 +75,11 @@ video#bgVideo {
 }
 
 #header {
-    position: fixed;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    top: 35px;
+    position: absolute;
     font-size: 24px;
 }
 
 #header img {
-    vertical-align: middle;
-    margin: 0 15px 0 15px;
 }
 
 #soundControllPanel {
@@ -111,10 +105,7 @@ video#bgVideo {
 
 /* for high resolution display */
 
-@media  only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (min-device-pixel-ratio: 2) {
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2) {
     .customUnderline {
         text-decoration: none;
         background: url(../assets/bitmaps/dotted_line_x2.png) repeat-x 100% 100%;

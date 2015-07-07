@@ -15,15 +15,17 @@
 		</video>
 
 		<div id="header">
-			<span>they call</span>
-			<img src="assets/bitmaps/logo.png" srcset="assets/bitmaps/logo_x2.png">
-			<span id="currencyButtonPrefix"> in </span>
-			<a class="customUnderline" href="#">%currencyname%</a>
+			<span id="headerLogoPrefix">they call</span>
+			<img id="headerLogo" src="assets/bitmaps/logo.png" srcset="assets/bitmaps/logo_x2.png">
+			<span id="headerCurrencySelectorBlock">
+				<span id="currencyButtonPrefix"> in </span>
+				<a id="currencySelectorButton" class="customUnderline" href="#">%currencyname%</a>
+			</span>
 		</div>
 
 		<div id="soundControllPanel">
-			<a class="customUnderline" href="#">Music off</a>
-			<a class="customUnderline" href="#">Shooting off</a>
+			<a id="musicSwitcher" class="customUnderline" href="#">Music </a>
+			<a id="shootingSwitcher" class="customUnderline" href="#">Shooting </a>
 		</div>
 
 		<div id="footer">
@@ -35,10 +37,14 @@
 
 
 		<script src="js/flashgangsta/utils/MathUtil.js"></script>
+		<script src="js/flashgangsta/managers/MappingManager.js"></script>
+		<script src="js/flashgangsta/geom/Rectangle.js"></script>
 		<script src="js/jquery-2.1.4.min.js"></script>
 		<script src="js/CurrencyConverter.js"></script>
-		<script src="js/Main.js"></script>
+		<script src="js/CurrencySelector.js"></script>
+		<script src="js/Header.js"></script>
 		<script src="js/SoundController.js"></script>
 		<script src="js/Bullets.js"></script>
+		<script src="js/Main.js"></script>
 	</body>
 </html>
