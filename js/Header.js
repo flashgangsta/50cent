@@ -9,18 +9,16 @@ function Header() {
 	var headerCurrencySelectorBlock = $("#headerCurrencySelectorBlock");
 	var margin = 15;
 	var logoTopMargin = 35;
+	var instance = this;
 
 	stage.resize(onWindowResized);
+	logo.load(onHeaderLogoLoad);
 
 	function onWindowResized(event) {
 		alignHeaderItems();
 	}
 
 	function alignHeaderItems() {
-		var stageWidth = stage.width();
-		var stageHeight = stage.height();
-		var logoWidth = logo.width();
-
 		logo.offset({
 			top: logoTopMargin
 		});
@@ -37,17 +35,14 @@ function Header() {
 
 		MappingManager.alignCenterY(headerLogoPrefix, logo);
 		MappingManager.alignCenterY(headerCurrencySelectorBlock, logo);
+	}
 
-
-
+	function onHeaderLogoLoad(event) {
+		alignHeaderItems();
+		console.log("onHeaderLogoLoad");
+		console.log(instance);
+		$(instance).trigger(CustomEvent.HEADER_LOGO_LOADED);
 	}
 
 	alignHeaderItems();
-
-
-	function onResizeHandler() {
-		alignHeaderItems();
-	}
-
-
 }

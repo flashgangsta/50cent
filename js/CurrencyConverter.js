@@ -11,14 +11,11 @@ function CurrencyConverter() {
 	var currency;
 	var request = new XMLHttpRequest();
 	var urlRequest;
-	var requestsDelay = 2000;
+	var requestsDelay = 1000;
+	var instance = this;
 
 	this.getCurrenciesList = function() {
 		return [].concat(currenciesList);
-	};
-
-	this.requestRates = function () {
-		sendRequest();
 	};
 
 	function sendRequest() {
@@ -30,22 +27,16 @@ function CurrencyConverter() {
 	function onResponse() {
 		var response = JSON.parse(this.responseText);
 		var result = response.query.results.rate;
+		var data = {};
+		var rateData;
 
-		var myEvent  = new CustomEvent("CURRENCY_EXCHANGED", {
-			detail: {
-				results: function() {
-					var values = {};
-					var rateData;
-					for (var i = 0; i < result.length; i++) {
-						rateData = result[i];
-						values[rateData.id.replace(mainCurrency, "")] = rateData.Rate;
-					}
-					return values;
-				}
-			}
-		});
+		for (var i = 0; i < result.length; i++) {
+			rateData = result[i];
+			data[rateData.id.replace(mainCurrency, "")] = rateData.Rate;
+		}
 
-		document.dispatchEvent(myEvent);
+		$(instance).trigger(CustomEvent.CURRENCY_RATE_RESPONSE, data);
+
 		setTimeout(sendRequest, requestsDelay);
 	};
 
@@ -57,4 +48,5 @@ function CurrencyConverter() {
 	};
 
 	request.onload = onResponse;
+	sendRequest();
 }

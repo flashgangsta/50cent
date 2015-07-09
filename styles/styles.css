@@ -37,6 +37,7 @@ video#bgVideo {
 
 #footer {
     position: absolute;
+    display: inline-block;
     width: 100%;
     height: auto;
     bottom: 40px;
@@ -101,6 +102,20 @@ video#bgVideo {
 
 #sharingPanel {
     cursor: pointer;
+}
+
+#layoutHolder {
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+#layout {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    /*border: 20px solid #FFFFFF;*/
 }
 
 /* for high resolution display */
