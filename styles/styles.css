@@ -43,6 +43,7 @@ video#bgVideo {
     bottom: 40px;
     font-family: Impact-Regular;
     text-align: center;
+    z-index: 400;
 }
 
 #footer a,
@@ -78,6 +79,7 @@ video#bgVideo {
 #header {
     position: absolute;
     font-size: 24px;
+    z-index: 300;
 }
 
 #header img {
@@ -115,7 +117,15 @@ video#bgVideo {
     display: inline-block;
     width: auto;
     height: auto;
-    /*border: 20px solid #FFFFFF;*/
+    z-index: 1;
+}
+
+#currenciesPopup {
+    width: 65%;
+    min-width: 403px;
+    height: 100%;
+    background: black;
+    z-index: 200;
 }
 
 /* for high resolution display */

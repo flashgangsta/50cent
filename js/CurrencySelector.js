@@ -4,9 +4,16 @@
 
 function CurrencySelector() {
 	var selectorButton = $("#currencySelectorButton");
+	var instance = this;
 	selectorButton.on("click", onCurrencySelectorClicked);
 	console.log("CurrencySelector");
-	function onCurrencySelectorClicked(event) {
-		alert("go to select currency");
+
+	this.getButtonID = function() {
+		return selectorButton.attr('id');
 	}
+
+	function onCurrencySelectorClicked(event) {
+		$(instance).trigger(CustomEvent.ON_CURRENCY_SELECTOR_CLICKED);
+	}
+
 }

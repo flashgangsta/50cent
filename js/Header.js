@@ -11,10 +11,9 @@ function Header() {
 	var logoTopMargin = 35;
 	var instance = this;
 
-	stage.resize(onWindowResized);
 	logo.load(onHeaderLogoLoad);
 
-	function onWindowResized(event) {
+	this.onStageResized = function(event) {
 		alignHeaderItems();
 	}
 
@@ -39,8 +38,6 @@ function Header() {
 
 	function onHeaderLogoLoad(event) {
 		alignHeaderItems();
-		console.log("onHeaderLogoLoad");
-		console.log(instance);
 		$(instance).trigger(CustomEvent.HEADER_LOGO_LOADED);
 	}
 

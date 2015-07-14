@@ -26,7 +26,6 @@ MappingManager.alignCenterX = function(target, area, notRoundPosition) {
 		left: areaBounds.x + ((areaBounds.width - targetBounds.width) / 2)
 	});
 
-
 	if (!notRoundPosition) {
 		target.offset({
 			left: Math.round(target.position().left)

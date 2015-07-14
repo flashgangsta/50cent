@@ -6,7 +6,6 @@ function Layout() {
 	var layoutHolder = $("#layoutHolder");
 	var layout = $("#layout");
 	var layoutHTML = layout[0];
-	var stage = $(window);
 	var stageRect;
 	var margins = 55;
 	var layoutOriginalWidth = 365;
@@ -14,20 +13,33 @@ function Layout() {
 	var layoutContext = layout[0].getContext("2d");
 	var rectThickness = 20;
 
+	this.onStageResized = function(event) {
+		alignAndScaleLayout();
+	}
+
 
 	layoutHTML.width = layoutOriginalWidth + rectThickness;
 	layoutHTML.height = layoutOriginalHeight + rectThickness;
 
-	stage.resize(alignAndScaleLayout);
 
 	function drawCanvas() {
 		layoutContext.strokeStyle = "#FFFFFF";
 		layoutContext.lineWidth = 20;
 		/*layoutContext.translate(100, 100);*/
 		layoutContext.strokeRect(rectThickness / 2, rectThickness / 2, layoutOriginalWidth, layoutOriginalHeight);
-	}
 
-	drawCanvas();
+		layoutContext.font = "290px Impact";
+		layoutContext.fillStyle = "#FFFFFF";
+		layoutContext.textAlign = "center";
+		layoutContext.textBaseline = "top";
+		layoutContext.fillText("88", layoutHTML.width / 2, 5);
+
+		layoutContext.font = "91px Impact";
+		layoutContext.fillStyle = "#FFFFFF";
+		layoutContext.textAlign = "center";
+		layoutContext.textBaseline = "top";
+		layoutContext.fillText("FORINT", layoutHTML.width / 2, 320);
+	}
 
 	function alignAndScaleLayout() {
 		stageRect = MappingManager.getStageRect();
@@ -43,11 +55,6 @@ function Layout() {
 		margin = margins * layoutScale;
 		layoutMaxHeight -= (margin * 2);
 		layoutScale = Math.min(1, layoutMaxHeight / layoutOriginalHeight);
-
-		/*if(layout.is(":hidden")) {
-			layout.show();
-			console.log("hidden");
-		}*/
 
 		layout.width(Math.round(layoutOriginalWidth * layoutScale));
 		layout.height(Math.round(layoutOriginalHeight * layoutScale));
@@ -65,4 +72,5 @@ function Layout() {
 	};
 	
 	alignAndScaleLayout();
+	drawCanvas();
 }
