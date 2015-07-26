@@ -14,10 +14,12 @@ $(document).ready(function () {
 	var currenciesPopup = new CurrenciesPopup();
 	var currecnciesPopupID = currenciesPopup.getElementID();
 	var currenciesSelectorButtonID = currencySelector.getButtonID();
+	var currentCurrency = localStorage.currentCurrency || "RUB";
 
 	$(header).on(CustomEvent.HEADER_LOGO_LOADED, layout.headerLogoLoaded);
 	$(currencyConverter).on(CustomEvent.CURRENCY_RATE_RESPONSE, onCurrenyRatesProcessedFirstTime);
 	$(currencySelector).on(CustomEvent.ON_CURRENCY_SELECTOR_CLICKED, onCurrencySelectorClicked)
+	$(currenciesPopup).on(CustomEvent.ON_NEW_CURRENCY_SELECTED, onNewCurrencySelected)
 
 	function onCurrenyRatesProcessedFirstTime(event, data) {
 		onCurrenyRatesProcessed(event, data);
@@ -37,7 +39,9 @@ $(document).ready(function () {
 	}
 
 	function onStageResized(event) {
-		event.stopImmediatePropagation();
+		if(event) {
+			event.stopImmediatePropagation();
+		}
 		header.onStageResized(event);
 		currenciesPopup.onStageResized(event);
 		layout.onStageResized(event);
@@ -53,8 +57,15 @@ $(document).ready(function () {
 		}
 	}
 
+	function onNewCurrencySelected(event) {
+		if(event) event.stopImmediatePropagation();
+		currencySelector.setCurrentCurrencyName(currenciesPopup.getCurrenctCurrencyCountryName());
+
+	}
+
 	stage.resize(onStageResized);
 	stage.on("click", onStageClicked);
-
-
+	onStageResized();
+	currenciesPopup.setCurrentCurrencyCode(currentCurrency);
+	onNewCurrencySelected();
 });

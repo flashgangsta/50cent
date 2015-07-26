@@ -47,6 +47,6 @@ function CurrencyConverter() {
 		currenciesFormattedForRequest.push('"' + mainCurrency + currency + '"');
 	};
 
-	request.onload = onResponse;
+	request.onload = onResponse; //.bind(this) - почитать
 	sendRequest();
 }

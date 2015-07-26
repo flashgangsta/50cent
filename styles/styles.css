@@ -91,7 +91,6 @@ video#bgVideo {
     height: auto;
     bottom: 100px;
     text-align: center;
-    padding: 0px 10px 0px 10px;
     word-wrap: normal;
     display: inline-block;
     word-spacing: 12px;
@@ -121,11 +120,68 @@ video#bgVideo {
 }
 
 #currenciesPopup {
+    position: absolute;
     width: 65%;
     min-width: 403px;
     height: 100%;
     background: black;
     z-index: 200;
+}
+
+#closeCross {
+    position: absolute;
+    float: right;
+    right: 8%;
+    top: 60px;
+}
+
+#closeCross {
+
+}
+
+#closeCross:hover {
+    filter: drop-shadow(0px 0px 5px rgba(255, 198, 0, 1));
+    -webkit-filter: drop-shadow(0px 0px 5px rgba(255, 198, 0, 1));
+}
+
+#closeCross:active {
+    filter: drop-shadow(0px 0px 5px rgba(255, 198, 0, 1));
+    -webkit-filter: drop-shadow(0px 0px 5px rgba(166, 127, 8, 1));
+}
+
+#currenciesHolder {
+    position: relative;
+    text-align: center;
+    width: 80%;
+    word-spacing: 50px;
+    word-wrap: normal;
+    line-height: 80px;
+    align: center;
+    margin: 0 auto;
+    top: 260px;
+}
+
+#currenciesHolder a {
+    text-align: center;
+    font-size: 45px;
+    text-decoration: none;
+}
+
+.currenciesHolderButton {
+    color: #FFFFFF;
+}
+
+.currenciesHolderButton:hover {
+    color: #ffc000;
+}
+
+.currenciesHolderButton:active {
+    color: #ff0000;
+}
+
+.currenciesHolderButtonDisabled {
+    cursor: default;
+    color: #ff0000;
 }
 
 /* for high resolution display */

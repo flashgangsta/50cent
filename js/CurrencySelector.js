@@ -12,6 +12,10 @@ function CurrencySelector() {
 		return selectorButton.attr('id');
 	}
 
+	this.setCurrentCurrencyName = function(name) {
+		selectorButton.text(name);
+	}
+
 	function onCurrencySelectorClicked(event) {
 		$(instance).trigger(CustomEvent.ON_CURRENCY_SELECTOR_CLICKED);
 	}
