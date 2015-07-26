@@ -12,9 +12,18 @@ function Layout() {
 	var layoutOriginalHeight = 451;
 	var layoutContext = layout[0].getContext("2d");
 	var rectThickness = 20;
+	var CURRENCY_NAME_Y = 320;
 
 	this.onStageResized = function(event) {
 		alignAndScaleLayout();
+	}
+
+	this.setCurrency = function(value, name) {
+		var rect = new Rectangle(rectThickness, rectThickness, layoutOriginalWidth - rectThickness);
+		rect.height = name ? layoutOriginalHeight - rectThickness : CURRENCY_NAME_Y;
+		layoutContext.clearRect(rect.x, rect.y, rect.width, rect.height);
+		drawCurrencyValue(value);
+		if(name) drawCurrencyName(name);
 	}
 
 
@@ -25,20 +34,23 @@ function Layout() {
 	function drawCanvas() {
 		layoutContext.strokeStyle = "#FFFFFF";
 		layoutContext.lineWidth = 20;
-		/*layoutContext.translate(100, 100);*/
 		layoutContext.strokeRect(rectThickness / 2, rectThickness / 2, layoutOriginalWidth, layoutOriginalHeight);
+	}
 
+	function drawCurrencyValue(value) {
 		layoutContext.font = "290px Impact";
 		layoutContext.fillStyle = "#FFFFFF";
 		layoutContext.textAlign = "center";
 		layoutContext.textBaseline = "top";
-		layoutContext.fillText("88", layoutHTML.width / 2, 5);
+		layoutContext.fillText(value, layoutHTML.width / 2, 5);
+	}
 
+	function drawCurrencyName(value) {
 		layoutContext.font = "91px Impact";
 		layoutContext.fillStyle = "#FFFFFF";
 		layoutContext.textAlign = "center";
 		layoutContext.textBaseline = "top";
-		layoutContext.fillText("FORINT", layoutHTML.width / 2, 320);
+		layoutContext.fillText(value.toUpperCase(), layoutHTML.width / 2, CURRENCY_NAME_Y);
 	}
 
 	function alignAndScaleLayout() {
@@ -65,12 +77,6 @@ function Layout() {
 
 	}
 	
-	this.headerLogoLoaded = function (event) {
-		console.log("header logo loaded captured")
-		console.log(event);
-		alignAndScaleLayout();
-	};
-	
-	alignAndScaleLayout();
 	drawCanvas();
+	alignAndScaleLayout();
 }

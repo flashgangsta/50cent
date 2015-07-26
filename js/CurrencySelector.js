@@ -9,10 +9,11 @@ function CurrencySelector() {
 	console.log("CurrencySelector");
 
 	this.getButtonID = function() {
+		<!--TODO: проверить нужна ли эта функция -->
 		return selectorButton.attr('id');
 	}
 
-	this.setCurrentCurrencyName = function(name) {
+	this.setCurrentCurrencyCountry = function(name) {
 		selectorButton.text(name);
 	}
 

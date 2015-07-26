@@ -38,7 +38,7 @@ function Header() {
 
 	function onHeaderLogoLoad(event) {
 		alignHeaderItems();
-		$(instance).trigger(CustomEvent.HEADER_LOGO_LOADED);
+		$(instance).trigger(CustomEvent.ON_HEADER_LOGO_LOADED);
 	}
 
 	alignHeaderItems();

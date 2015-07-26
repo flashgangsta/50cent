@@ -10,21 +10,49 @@ function SoundController() {
 	var shootingSwitcher = $("#shootingSwitcher");
 	var musicToggle = localStorage.musicToggle || "on";
 	var shootingToggle = localStorage.shootingToggle || "on";
+	var SOUND_SHOOT = "ID_SHOOT";
+	var SOUND_RELOAD = "ID_RELOAD";
+	var TOGGLE_ON = "on";
+	var TOGGLE_OFF = "off";
+	var instance = this;
 
-	SoundController.SHOT = "shot";
-	SoundController.RELOAD = "reload";
+	this.loadAllSounds = function() {
+		loadSounds(shootPaths, shootSounds);
+		loadSounds(reloadPaths, reloadSounds);
+	};
 
-	this.playSound = function(soundID) {
-		var soundsList = soundID === SoundController.SHOT ? shootSounds : reloadSounds;
-		var index = MathUtil.getRandomInt(0, soundsList.length - 1);
-		var audio = soundsList[index].cloneNode();
-		audio.addEventListener('ended', onSoundEnded);
-		audio.play();
-	}
+	this.playShoot = function() {
+		playSound(SOUND_SHOOT);
+	};
 
 	this.playReload = function() {
-		var index = MathUtil.getRandomInt(0, reloadSounds.length - 1);
-		var audio = shootSounds[index].cloneNode();
+		console.log("playReload();");
+		playSound(SOUND_RELOAD)
+	};
+
+	function playSound(soundID) {
+		var soundsList;
+
+		console.log("playSound(" + soundID + ");");
+
+		if(shootingToggle === TOGGLE_OFF) {
+			return;
+		} else if(soundID === SOUND_SHOOT) {
+			console.log("soundsList = shootSounds;");
+			soundsList = shootSounds;
+		} else if(soundID === SOUND_RELOAD) {
+			console.log("soundsList = reloadSounds;");
+			soundsList = reloadSounds;
+		} else {
+			return;
+		}
+
+		if(!soundsList.length) {
+			return;
+		}
+
+		var index = MathUtil.getRandomInt(0, soundsList.length - 1);
+		var audio = soundsList[index].cloneNode();
 		audio.addEventListener('ended', onSoundEnded);
 		audio.play();
 	}
@@ -39,6 +67,9 @@ function SoundController() {
 				audio = event.target;
 				audio.removeEventListener("canplay", event.callee);
 				list.push(audio);
+				if(shootPaths.length === shootSounds.length && reloadPaths.length === reloadSounds.length) {
+					$(instance).trigger(CustomEvent.ON_ALL_SOUNDS_LOADED);
+				}
 			});
 			audio.load();
 		}
@@ -48,10 +79,6 @@ function SoundController() {
 		var audio = event.target;
 		audio.removeEventListener('ended', onSoundEnded);
 	}
-
-	loadSounds(shootPaths, shootSounds);
-	loadSounds(reloadPaths, reloadSounds);
-
 
 	musicSwitcher.on("click", toggleMusicSwitcherHandler);
 	shootingSwitcher.on("click", toggleShootingSwitcher);
@@ -63,7 +90,7 @@ function SoundController() {
 	}
 
 	function toggleShootingSwitcher(event) {
-		shootingToggle = shootingToggle === "on" ? "off" : "on";
+		shootingToggle = shootingToggle === TOGGLE_ON ? TOGGLE_OFF : TOGGLE_ON;
 		localStorage.shootingToggle = shootingToggle;
 		setSoundControllers();
 	}

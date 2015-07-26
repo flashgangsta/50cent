@@ -60,6 +60,16 @@ video#bgVideo {
     color: bisque;
 }
 
+.noselectText {
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .customUnderline {
     text-decoration: none;
     background: url(../assets/bitmaps/dotted_line.png) repeat-x 100% 100%;
@@ -122,7 +132,7 @@ video#bgVideo {
 #currenciesPopup {
     position: absolute;
     width: 65%;
-    min-width: 403px;
+    min-width: 400px;
     height: 100%;
     background: black;
     z-index: 200;
@@ -147,6 +157,18 @@ video#bgVideo {
 #closeCross:active {
     filter: drop-shadow(0px 0px 5px rgba(255, 198, 0, 1));
     -webkit-filter: drop-shadow(0px 0px 5px rgba(166, 127, 8, 1));
+}
+
+#popupBackstage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0); /*for IE8 and earlier*/
+    z-index: 199;
+    background: red;
 }
 
 #currenciesHolder {
@@ -177,11 +199,17 @@ video#bgVideo {
 
 .currenciesHolderButton:active {
     color: #ff0000;
+    outline: none;
+    border: none;
 }
 
 .currenciesHolderButtonDisabled {
     cursor: default;
     color: #ff0000;
+}
+
+.currenciesHolderButtonDisabled:focus {
+    outline:0;
 }
 
 /* for high resolution display */

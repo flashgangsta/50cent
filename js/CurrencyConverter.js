@@ -35,7 +35,7 @@ function CurrencyConverter() {
 			data[rateData.id.replace(mainCurrency, "")] = rateData.Rate;
 		}
 
-		$(instance).trigger(CustomEvent.CURRENCY_RATE_RESPONSE, data);
+		$(instance).trigger(CustomEvent.ON_CURRENCY_RATE_RESPONSE, data);
 
 		setTimeout(sendRequest, requestsDelay);
 	};
@@ -47,6 +47,6 @@ function CurrencyConverter() {
 		currenciesFormattedForRequest.push('"' + mainCurrency + currency + '"');
 	};
 
-	request.onload = onResponse; //.bind(this) - почитать
+	request.onload = onResponse; <!--TODO: .bind(this) - почитать -->
 	sendRequest();
 }

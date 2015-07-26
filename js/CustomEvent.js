@@ -3,10 +3,12 @@
  */
 
 
-CustomEvent.HEADER_LOGO_LOADED = "headerLogoLoaded";
-CustomEvent.CURRENCY_RATE_RESPONSE = "currencyRateResponse";
-CustomEvent.ON_CURRENCY_SELECTOR_CLICKED = "onCurrencyConverterClicked";
-CustomEvent.ON_NEW_CURRENCY_SELECTED = "onNewCurrencySelected";
+CustomEvent.ON_HEADER_LOGO_LOADED = "onHeaderLogoLoadedEvent";
+CustomEvent.ON_CURRENCY_RATE_RESPONSE = "onCurrencyRateResponseEvent";
+CustomEvent.ON_CURRENCY_SELECTOR_CLICKED = "onCurrencyConverterClickedEvent";
+CustomEvent.ON_NEW_CURRENCY_SELECTED = "onNewCurrencySelectedEvent";
+CustomEvent.ON_CURRENCY_POPUP_HIDE_CALLED = "onCurrencyPopupHideCalledEvent";
+CustomEvent.ON_ALL_SOUNDS_LOADED = "onAllSoundsLoadedEvent"
 
 function CustomEvent() {
 
