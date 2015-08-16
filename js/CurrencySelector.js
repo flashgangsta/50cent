@@ -6,7 +6,6 @@ function CurrencySelector() {
 	var selectorButton = $("#currencySelectorButton");
 	var instance = this;
 	selectorButton.on("click", onCurrencySelectorClicked);
-	console.log("CurrencySelector");
 
 	this.getButtonID = function() {
 		<!--TODO: проверить нужна ли эта функция -->

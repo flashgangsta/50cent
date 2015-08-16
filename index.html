@@ -9,57 +9,62 @@
 	</head>
 
 	<body>
-		<video autoplay loop poster="assets/bitmaps/bgVideoPoster.jpg" id="bgVideo">
-			<source src="assets/video/bgVideo.webm" type="video/webm">
-			<source src="assets/video/bgVideo.mp4" type="video/mp4">
-		</video>
+		<div id="preloaderHolder">
+			<canvas id="preloaderCanvas">Your browser is very old and not supoorted canvas</canvas>
+			<div id="preloaderBackground"></div>
+		</div>
+		<div id="contentHolder">
+			<video autoplay loop poster="assets/bitmaps/bgVideoPoster.jpg" id="bgVideo">
+				<source src="assets/video/bgVideo.webm" type="video/webm">
+				<source src="assets/video/bgVideo.mp4" type="video/mp4">
+			</video>
 
-		<div id="header" class="noselectText">
-			<span id="headerLogoPrefix">they call</span><!--TODO: убедиться что тут нужен ID-->
-			<img id="headerLogo" src="assets/bitmaps/logo.png" srcset="assets/bitmaps/logo_x2.png">
+			<div id="header" class="noselectText">
+				<span id="headerLogoPrefix">they call</span><!--TODO: убедиться что тут нужен ID-->
+				<img id="headerLogo" src="assets/bitmaps/logo.png" srcset="assets/bitmaps/logo_x2.png">
 			<span id="headerCurrencySelectorBlock">
 				<span id="currencyButtonPrefix"> in </span>
 				<a id="currencySelectorButton" class="customUnderline" href="#">%currency%</a>
 			</span>
-		</div>
+			</div>
 
-		<div id="popupBackstage"></div>
+			<div id="popupBackstage"></div>
 
-		<div id="currenciesPopup">
-			<a id="closeCross" href="">
-				<img src="assets/bitmaps/popupCloseCross.png" srcset="assets/bitmaps/popupCloseCross_x2.png">
-				<div id="currenciesHolder" class="noselectText">
-					<a class="currenciesHolderButton" href="">russia</a>
-					<a class="currenciesHolderButton" href="">belarus</a>
-					<a class="currenciesHolderButton" href="">ukraine</a>
-					<a class="currenciesHolderButton" href="">hungary</a>
-					<a class="currenciesHolderButton" href="">china</a>
-					<a class="currenciesHolderButton" href="">brazil</a>
-					<a class="currenciesHolderButton" href="">australia</a>
-					<a class="currenciesHolderButton" href="">india</a>
-					<a class="currenciesHolderButton" href="">japan</a>
-					<a class="currenciesHolderButton" href="">egypt</a>
-					<a class="currenciesHolderButton" href="">zimbabwe</a>
-				</div>
-			</a>
-		</div>
+			<div id="currenciesPopup">
+				<a id="closeCross" href="">
+					<img src="assets/bitmaps/popupCloseCross.png" srcset="assets/bitmaps/popupCloseCross_x2.png">
+					<div id="currenciesHolder" class="noselectText">
+						<a class="currenciesHolderButton" href="">russia</a>
+						<a class="currenciesHolderButton" href="">belarus</a>
+						<a class="currenciesHolderButton" href="">ukraine</a>
+						<a class="currenciesHolderButton" href="">hungary</a>
+						<a class="currenciesHolderButton" href="">china</a>
+						<a class="currenciesHolderButton" href="">brazil</a>
+						<a class="currenciesHolderButton" href="">australia</a>
+						<a class="currenciesHolderButton" href="">india</a>
+						<a class="currenciesHolderButton" href="">japan</a>
+						<a class="currenciesHolderButton" href="">egypt</a>
+						<a class="currenciesHolderButton" href="">zimbabwe</a>
+					</div>
+				</a>
+			</div>
 
-		<div id="layoutHolder">
-			<canvas id="layout">Your browser not supoorted canvas</canvas>
-		</div>
+			<div id="layoutHolder">
+				<canvas id="layout">Your browser is very old and not supoorted canvas</canvas>
+			</div>
 
-		<div id="soundControllPanel" class="noselectText">
-			<a id="musicSwitcher" class="customUnderline" href="#">Music </a>
-			<a id="shootingSwitcher" class="customUnderline" href="#">Shooting </a>
-		</div>
+			<div id="soundControllPanel" class="noselectText">
+				<a id="musicSwitcher" class="customUnderline" href="#">Music </a>
+				<a id="shootingSwitcher" class="customUnderline" href="#">Shooting </a>
+			</div>
 
-		<div id="footer">
-			<a href="mailto:hellO@howtheycall50cent.org?subject=Wazzup man?">HELLO@HOWTHEYCALL50CENT.ORG</a>
+			<div id="footer">
+				<a href="mailto:hellO@howtheycall50cent.org?subject=Wazzup man?">HELLO@HOWTHEYCALL50CENT.ORG</a>
 			<span id="sharingPanel" onclick="alert('go to sharing')">
 				<img src="assets/bitmaps/socials.png" srcset="assets/bitmaps/socials_x2.png">
 			</span>
+			</div>
 		</div>
-
 
 		<script src="js/flashgangsta/utils/MathUtil.js"></script>
 		<script src="js/flashgangsta/managers/MappingManager.js"></script>
@@ -73,6 +78,9 @@
 		<script src="js/SoundController.js"></script>
 		<script src="js/Bullets.js"></script>
 		<script src="js/Layout.js"></script>
+		<script src="js/Preloader.js"></script>
+		<script src="js/App.js"></script>
 		<script src="js/Main.js"></script>
+		<script src="js/flashgangsta/utils/trace.js"></script>
 	</body>
 </html>

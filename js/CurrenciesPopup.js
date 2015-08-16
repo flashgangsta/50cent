@@ -113,6 +113,7 @@ function CurrenciesPopup() {
 
 	function alignItems() {
 		MappingManager.alignCenterX(popup, $(window));
+		MappingManager.alignCenterY(buttonsHolder, $(window));
 	}
 
 	function onCurrencySelect(target) {
@@ -122,7 +123,6 @@ function CurrenciesPopup() {
 		currentButton = $(target);
 		var countryName = currentButton.text();
 		currentCurrencyCode = instance.getCurrencyCodeByCountryName(countryName);
-		console.log(">", currentCurrencyCode);
 		$(instance).trigger(CustomEvent.ON_NEW_CURRENCY_SELECTED);
 		updateInteractive();
 	}

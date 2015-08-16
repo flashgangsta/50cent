@@ -18,6 +18,34 @@ html, body {
     color: #ffffff;
 }
 
+#preloaderHolder {
+    z-index: 498;
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#preloaderCanvas {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    z-index: 500;
+}
+
+#preloaderBackground {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 499;
+
+}
+
 /* for low resolution display */
 
 video#bgVideo {
