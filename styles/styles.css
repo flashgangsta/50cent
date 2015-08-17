@@ -59,7 +59,7 @@ video#bgVideo {
     z-index: -100;
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-    background: url(../assets/bitmaps/bgVideoPoster.jpg) no-repeat center center;
+    background: url(../assets/bitmaps/bgVideoPoster.png) no-repeat center center;
     background-size: cover;
 }
 

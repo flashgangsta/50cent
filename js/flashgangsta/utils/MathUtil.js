@@ -5,7 +5,7 @@
  */
 
 function MathUtil() {
-	throw new Error("Date converter is static class and has now be initiliazed");
+	throw new Error("MathUtil is static class and has now be initiliazed");
 }
 
 MathUtil.getRandomInt = function(min, max) {

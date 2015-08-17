@@ -3,6 +3,7 @@
  */
 
 function Preloader() {
+	var assets = new Assets();
 	var instance = this;
 	var ratio = App.getRatio();
 	var loaderRect = new Rectangle(0, 0, 365 / ratio, 450 / ratio);
@@ -21,6 +22,14 @@ function Preloader() {
 	var strokePhysicalSize = 0;
 	var sidePrecentTwo = horizontalPercent + verticalPercent;
 	var sidePrecentThree = verticalPercent * 2 + horizontalPercent;
+	var loadedFiles = 0;
+	var totalFiles = assets.getAssetsLength();
+	var preloaderSidesComplete = 0;
+
+	/**
+	 *
+	 * @param value
+	 */
 
 	function drawPercent(value) {
 		value = value || 0;
@@ -34,23 +43,30 @@ function Preloader() {
 
 		strokePhysicalSize = Math.round(rectStrokeLenght / 100 * value);
 
-
-		/*canvasContext.moveTo(0, canvasRect.height - strokeBeginPoint);
-		canvasContext.lineTo(canvasRect.width, canvasRect.height - strokeBeginPoint);*/
-
-		trace(value);
-
-
 		if(value <= verticalPercent) {
 			canvasContext.moveTo(strokeBeginPoint, canvasRect.height);
 			canvasContext.lineTo(strokeBeginPoint, canvasRect.height - strokePhysicalSize);
 		} else if(value <= sidePrecentTwo) {
+			if(!preloaderSidesComplete) {
+				preloaderSidesComplete++;
+				canvasContext.moveTo(strokeBeginPoint, strokeBeginPoint);
+				canvasContext.lineTo(strokeBeginPoint, canvasRect.height);
+			}
 			canvasContext.moveTo(-strokeBeginPoint, strokeBeginPoint);
 			canvasContext.lineTo(strokePhysicalSize - canvasRect.height, strokeBeginPoint);
 		} else if(value <= sidePrecentThree) {
+			if(preloaderSidesComplete === 1) {
+				preloaderSidesComplete++;
+				canvasContext.moveTo(-strokeBeginPoint, strokeBeginPoint);
+				canvasContext.lineTo(canvasRect.height, strokeBeginPoint);
+			}
 		 	canvasContext.moveTo(canvasRect.width - strokeBeginPoint, - strokeBeginPoint);
 			canvasContext.lineTo(canvasRect.width - strokeBeginPoint, strokePhysicalSize - (canvasRect.height + canvasRect.width));
 		} else {
+			if(preloaderSidesComplete === 2) {
+				canvasContext.moveTo(canvasRect.width - strokeBeginPoint, - strokeBeginPoint);
+				canvasContext.lineTo(canvasRect.width - strokeBeginPoint, canvasRect.height);
+			}
 			canvasContext.moveTo(canvasRect.width , canvasRect.height - strokeBeginPoint);
 			canvasContext.lineTo((canvasRect.width) - (strokePhysicalSize - (canvasRect.height + canvasRect.height + canvasRect.width)), canvasRect.height - strokeBeginPoint);
 		}
@@ -64,6 +80,28 @@ function Preloader() {
 			$(instance).trigger(CustomEvent.ON_PRELOADER_COMPLETE);
 		}
 	}
+
+	/**
+	 *
+	 * @param event
+	 */
+
+	function onAssetElementLoaded(event) {
+		loadedFiles++;
+		drawPercent(loadedFiles / totalFiles * 100);
+		trace(loadedFiles / totalFiles * 100)
+		if(assets.getAssetsLength()) {
+			assets.loadNextAsset();
+		} else {
+			console.log("All assets loaded");
+		}
+
+	}
+
+	/**
+	 *
+	 * @param event
+	 */
 
 	function onStageResized(event) {
 		MappingManager.alignCenterY(canvas, window);
@@ -88,9 +126,9 @@ function Preloader() {
 
 	drawPercent(val);
 
-	setInterval(function() {
-		drawPercent(++val);
-	}, 60);
+	$(assets).on(CustomEvent.ON_ASSET_ELEMENT_LOADED, onAssetElementLoaded);
+
+	assets.loadNextAsset();
 
 	onStageResized(null);
 }
