@@ -26,6 +26,11 @@ function Preloader() {
 	var totalFiles = assets.getAssetsLength();
 	var preloaderSidesComplete = 0;
 
+	this.dispose = function() {
+		//TODO: dispose all
+		$("#preloaderHolder").remove();
+		trace("preloader.dispose()");
+	}
 	/**
 	 *
 	 * @param value
@@ -65,7 +70,7 @@ function Preloader() {
 		} else {
 			if(preloaderSidesComplete === 2) {
 				canvasContext.moveTo(canvasRect.width - strokeBeginPoint, - strokeBeginPoint);
-				canvasContext.lineTo(canvasRect.width - strokeBeginPoint, canvasRect.height);
+				canvasContext.lineTo(canvasRect.width - strokeBeginPoint, canvasRect.heightco);
 			}
 			canvasContext.moveTo(canvasRect.width , canvasRect.height - strokeBeginPoint);
 			canvasContext.lineTo((canvasRect.width) - (strokePhysicalSize - (canvasRect.height + canvasRect.height + canvasRect.width)), canvasRect.height - strokeBeginPoint);
@@ -74,11 +79,12 @@ function Preloader() {
 
 		canvasContext.strokeStyle = "#FFFFFF";
 		canvasContext.lineWidth = stroke;
-		canvasContext.stroke();
-
-		if(value === 100) {
-			$(instance).trigger(CustomEvent.ON_PRELOADER_COMPLETE);
+		if(Math.floor(value) === 100) {
+			canvasContext.strokeRect(stroke / 2, stroke / 2, loaderRect.width, loaderRect.height);
+		} else {
+			canvasContext.stroke();
 		}
+
 	}
 
 	/**
@@ -89,11 +95,12 @@ function Preloader() {
 	function onAssetElementLoaded(event) {
 		loadedFiles++;
 		drawPercent(loadedFiles / totalFiles * 100);
-		trace(loadedFiles / totalFiles * 100)
 		if(assets.getAssetsLength()) {
 			assets.loadNextAsset();
 		} else {
 			console.log("All assets loaded");
+			drawPercent(100);
+			$(instance).trigger(CustomEvent.ON_PRELOADER_COMPLETE);
 		}
 
 	}
@@ -114,7 +121,7 @@ function Preloader() {
 
 	canvasContext.strokeStyle = "#333333";
 	canvasContext.lineWidth = stroke;
-	canvasContext.strokeRect(stroke / 2, stroke / 2, loaderRect.width, loaderRect.height);
+	canvasContext.strokeRect(strokeBeginPoint, strokeBeginPoint, loaderRect.width, loaderRect.height);
 
 	canvasContext.font = precentTextSize + "px Impact";
 	canvasContext.fillStyle = "#FFFFFF";
@@ -122,9 +129,7 @@ function Preloader() {
 	canvasContext.textBaseline = "bottom";
 	canvasContext.fillText("PERCENT", canvasHTML.width / 2, (canvasHTML.height - (45 / ratio)));
 
-	var val = 0;
-
-	drawPercent(val);
+	drawPercent();
 
 	$(assets).on(CustomEvent.ON_ASSET_ELEMENT_LOADED, onAssetElementLoaded);
 

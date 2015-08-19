@@ -4,7 +4,6 @@
 function SoundController() {
 	var shootSounds = [];
 	var reloadSounds = [];
-	var shootPaths = ["gun01", 'gun02', 'gun03', 'gun04'];
 	var reloadPaths = ["reload01", 'reload02'];
 	var musicSwitcher = $("#musicSwitcher");
 	var shootingSwitcher = $("#shootingSwitcher");
@@ -16,18 +15,14 @@ function SoundController() {
 	var TOGGLE_OFF = "off";
 	var instance = this;
 
-	this.loadAllSounds = function() {
-		loadSounds(shootPaths, shootSounds);
-		loadSounds(reloadPaths, reloadSounds);
-	};
 
 	this.playShoot = function() {
-		playSound(SOUND_SHOOT);
+		//playSound(SOUND_SHOOT);
 	};
 
 	this.playReload = function() {
 		console.log("playReload();");
-		playSound(SOUND_RELOAD)
+		//playSound(SOUND_RELOAD)
 	};
 
 	function playSound(soundID) {

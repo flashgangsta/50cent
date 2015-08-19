@@ -17,7 +17,6 @@ function Queue() {
 
 		for(i = 1; i < arguments.length; i ++) {
 			argumentsRestList.push(arguments[i]);
-			trace(arguments[i]);
 		}
 
 		args.push(argumentsRestList);
@@ -25,10 +24,9 @@ function Queue() {
 
 	this.applyFirst = function() {
 		if (!methods.length) return;
-		console.log("applyFirst");
 		var method = methods.shift();
-		console.log(method);
-		method.apply(null, args.shift());
+		var argsList = args.shift();
+		method.apply(null, argsList);
 	};
 
 	this.getLength = function() {

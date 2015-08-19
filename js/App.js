@@ -28,7 +28,7 @@ function App() {
 
 	content.hide();
 	preloader = new Preloader();
-	$("#preloaderHolder").on(CustomEvent.ON_PRELOADER_COMPLETE, onPreloaderComplete);
+	$(preloader).on(CustomEvent.ON_PRELOADER_COMPLETE, onPreloaderComplete);
 
 	this.startApp = function() {
 		<!--TODO: localStorage заменить на куки-->
@@ -38,7 +38,6 @@ function App() {
 		$(currencySelector).on(CustomEvent.ON_CURRENCY_SELECTOR_CLICKED, onCurrencySelectorClicked);
 		$(currenciesPopup).on(CustomEvent.ON_NEW_CURRENCY_SELECTED, onNewCurrencySelected);
 		$(currenciesPopup).on(CustomEvent.ON_CURRENCY_POPUP_HIDE_CALLED, onCurrencyPopupHideCalled);
-		$(soundController).on(CustomEvent.ON_ALL_SOUNDS_LOADED, onAllSoundsLoaded);
 
 		stage.resize(onStageResized);
 		popupBackstage.on("click", onPopupBackstageClicked);
@@ -47,12 +46,12 @@ function App() {
 		onNewCurrencySelected();
 		popupBackstage.hide();
 		currenciesPopup.hide();
-		soundController.loadAllSounds();
 		onStageResized();
+		content.show();
 	};
 
 	function onPreloaderComplete(event) {
-		console.log("onPreloaderComplete")
+		$("#preloaderHolder").off(CustomEvent.ON_PRELOADER_COMPLETE);
 		preloader.dispose();
 		instance.startApp();
 	}
@@ -120,9 +119,5 @@ function App() {
 			soundController.playShoot();
 			drawCurrency();
 		}
-	}
-
-	function onAllSoundsLoaded(event) {
-		layout.onStageResized();
 	}
 }

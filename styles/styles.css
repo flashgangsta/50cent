@@ -245,7 +245,7 @@ video#bgVideo {
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2) {
     .customUnderline {
         text-decoration: none;
-        background: url(../assets/bitmaps/dotted_line_x2.png) repeat-x 100% 100%;
+        background: url(../assets/images/dotted_line_x2.png) repeat-x 100% 100%;
         padding-bottom: 2px;
         white-space: nowrap;
     }
