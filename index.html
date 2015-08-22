@@ -14,9 +14,8 @@
 			<div id="preloaderBackground"></div>
 		</div>
 		<div id="contentHolder">
-			<video autoplay loop poster="assets/bitmaps/bgVideoPoster.png" id="bgVideo">
-				<source src="assets/video/bgvideo.webm" type="video/webm">
-				<source src="assets/video/bgvideo.mp4" type="video/mp4">
+			<video id="bgVideoHolder" autoplay loop>
+				<source id="bgVideoSrc" type="video/mp4">
 			</video>
 
 			<div id="header" class="noselectText">
@@ -44,7 +43,6 @@
 						<a class="currenciesHolderButton" href="">india</a>
 						<a class="currenciesHolderButton" href="">japan</a>
 						<a class="currenciesHolderButton" href="">egypt</a>
-						<a class="currenciesHolderButton" href="">zimbabwe</a>
 					</div>
 				</a>
 			</div>
@@ -85,5 +83,7 @@
 		<script src="js/Assets.js"></script>
 		<script src="js/flashgangsta/utils/Queue.js"></script>
 		<script src="js/flashgangsta/utils/StringUtil.js"></script>
+		<script src="js/VideoController.js"></script>
+		<script src="js/flashgangsta/utils/BrowserDetection.js"></script>
 	</body>
 </html>

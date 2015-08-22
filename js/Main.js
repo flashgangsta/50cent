@@ -5,7 +5,7 @@
 	$(document).ready(function () {
 		var app;
 		if (!app) {
-			console.log("DOCUMENT READY");
+			console.log("DOCUMENT READY", "navigator.userAgent:", BrowserDetection.getBrowser(), BrowserDetection.getBrowserVersion(), BrowserDetection.getBrowser(), BrowserDetection.getBrowserVersion());
 			app = new App();
 		}
 	});

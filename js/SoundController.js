@@ -14,6 +14,9 @@ function SoundController() {
 	var TOGGLE_ON = "on";
 	var TOGGLE_OFF = "off";
 	var instance = this;
+	var assets = Assets.getInstance();
+	var bgMusic = assets.getAssetByName("bgmusic");
+	bgMusic.loop = true;
 
 
 	this.playShoot = function() {
@@ -21,22 +24,23 @@ function SoundController() {
 	};
 
 	this.playReload = function() {
-		console.log("playReload();");
 		//playSound(SOUND_RELOAD)
 	};
+
+	this.playBackgroundMusic = function() {
+		if(musicToggle === TOGGLE_ON) {
+			bgMusic.play();
+		}
+	}
 
 	function playSound(soundID) {
 		var soundsList;
 
-		console.log("playSound(" + soundID + ");");
-
 		if(shootingToggle === TOGGLE_OFF) {
 			return;
 		} else if(soundID === SOUND_SHOOT) {
-			console.log("soundsList = shootSounds;");
 			soundsList = shootSounds;
 		} else if(soundID === SOUND_RELOAD) {
-			console.log("soundsList = reloadSounds;");
 			soundsList = reloadSounds;
 		} else {
 			return;
@@ -78,8 +82,20 @@ function SoundController() {
 	musicSwitcher.on("click", toggleMusicSwitcherHandler);
 	shootingSwitcher.on("click", toggleShootingSwitcher);
 
+	/**
+	 *
+	 * @param event
+	 */
+
 	function toggleMusicSwitcherHandler(event) {
-		musicToggle = musicToggle === "on" ? "off" : "on";
+		if(musicToggle === TOGGLE_ON) {
+			musicToggle = TOGGLE_OFF;
+			bgMusic.pause();
+		} else {
+			musicToggle = TOGGLE_ON;
+			bgMusic.play();
+		}
+
 		localStorage.musicToggle = musicToggle;
 		setSoundControllers();
 	}

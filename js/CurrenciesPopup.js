@@ -56,7 +56,6 @@ function CurrenciesPopup() {
 	}
 
 	this.setCurrentCurrencyCode = function (code) {
-		console.log("setCurrentCurrencyCode")
 		code = code.toUpperCase();
 		checkCurrencyCode(code);
 		currentCurrencyCode = code;

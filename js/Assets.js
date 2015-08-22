@@ -2,14 +2,21 @@
  * Created by sergeykrivtsov on 8/17/15.
  */
 
+Assets.getInstance = function(){return null};
+
 function Assets() {
 	var queue = new Queue();
 	var soundsFolder = "assets/sounds/";
-	var imagesFolder = "assets/images/"
+	var imagesFolder = "assets/images/";
+	var videosFolder = "assets/videos/";
 	var assets = {};
 	var instance = this;
 
-	queue.push(loadSound, "assets/music/bgmusic.ogg");
+	Assets.getInstance = function() {
+		return instance;
+	}
+
+	queue.push(loadSound, "assets/music/bgmusic.mp3");
 	queue.push(loadSound, soundsFolder + "shoot01.mp3");
 	queue.push(loadSound, soundsFolder + "shoot02.mp3");
 	queue.push(loadSound, soundsFolder + "shoot03.mp3");
@@ -19,7 +26,31 @@ function Assets() {
 	queue.push(loadImage, imagesFolder + "bullet01.png");
 	queue.push(loadImage, imagesFolder + "bullet02.png");
 	queue.push(loadImage, imagesFolder + "bullet03.png");
+	queue.push(loadVideo, videosFolder + "bgvideo.mp4", "bgVideoHolder", "bgVideoSrc");
 
+	/**
+	 *
+	 */
+
+	this.loadNextAsset = function () {
+		queue.applyFirst();
+	};
+
+	/**
+	 *
+	 */
+
+	this.getAssetsLength = function() {
+		return queue.getLength();
+	};
+
+	/**
+	 *
+	 */
+
+	this.getAssetByName = function(name) {
+		return assets[name];
+	}
 
 	/**
 	 *
@@ -27,13 +58,13 @@ function Assets() {
 	 */
 
 	function loadSound(path) {
-		var audio = new Audio();
+		var audio = new Audio();//document.createElement("audio")
 		audio.autoplay = false;
 		audio.src = path;
-		audio.addEventListener("canplay", function(event) {
+		audio.addEventListener("canplaythrough", function(event) {
 			audio = event.target;
 			rememberElement(audio, path);
-			audio.removeEventListener("canplay", event.callee);
+			audio.removeEventListener("canplaythrough", arguments.callee);
 			$(instance).trigger(CustomEvent.ON_ASSET_ELEMENT_LOADED);
 		});
 		audio.load();
@@ -53,6 +84,27 @@ function Assets() {
 			delete image.onload;
 			$(instance).trigger(CustomEvent.ON_ASSET_ELEMENT_LOADED);
 		}
+	}
+
+	/**
+	 *
+	 * @param path
+	 * @param videoHolderID
+	 * @param videoSrcID
+	 */
+
+	function loadVideo(path, videoHolderID, videoSrcID) {
+		var videoHolder = document.getElementById(videoHolderID);
+		var video = document.getElementById(videoSrcID);
+
+		video.src = path;
+		videoHolder.addEventListener("canplaythrough", function(event) {
+			videoHolder.removeEventListener("canplaythrough", arguments.callee);
+			videoHolder.pause();
+			rememberElement(video, path);
+			$(instance).trigger(CustomEvent.ON_ASSET_ELEMENT_LOADED);
+		});
+		videoHolder.load();
 	}
 
 	/**
@@ -90,20 +142,4 @@ function Assets() {
 	function getLastCharNum(value) {
 		return Number(value.charAt(value.length  - 1));
 	}
-
-	/**
-	 *
-	 */
-
-	this.loadNextAsset = function () {
-		queue.applyFirst();
-	};
-
-	/**
-	 *
-	 */
-
-	this.getAssetsLength = function() {
-		return queue.getLength();
-	};
 }

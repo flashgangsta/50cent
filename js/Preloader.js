@@ -23,14 +23,22 @@ function Preloader() {
 	var sidePrecentTwo = horizontalPercent + verticalPercent;
 	var sidePrecentThree = verticalPercent * 2 + horizontalPercent;
 	var loadedFiles = 0;
-	var totalFiles = assets.getAssetsLength();
+	var totalFiles = assets.getAssetsLength() + 1;
 	var preloaderSidesComplete = 0;
+
+	/**
+	 *
+	 */
 
 	this.dispose = function() {
 		//TODO: dispose all
 		$("#preloaderHolder").remove();
-		trace("preloader.dispose()");
 	}
+
+	this.onCurrencyRatesProcessed = function() {
+		onAssetElementLoaded(null);
+	}
+
 	/**
 	 *
 	 * @param value
@@ -69,8 +77,9 @@ function Preloader() {
 			canvasContext.lineTo(canvasRect.width - strokeBeginPoint, strokePhysicalSize - (canvasRect.height + canvasRect.width));
 		} else {
 			if(preloaderSidesComplete === 2) {
+				preloaderSidesComplete++;
 				canvasContext.moveTo(canvasRect.width - strokeBeginPoint, - strokeBeginPoint);
-				canvasContext.lineTo(canvasRect.width - strokeBeginPoint, canvasRect.heightco);
+				canvasContext.lineTo(canvasRect.width - strokeBeginPoint, canvasRect.height);
 			}
 			canvasContext.moveTo(canvasRect.width , canvasRect.height - strokeBeginPoint);
 			canvasContext.lineTo((canvasRect.width) - (strokePhysicalSize - (canvasRect.height + canvasRect.height + canvasRect.width)), canvasRect.height - strokeBeginPoint);
@@ -97,10 +106,13 @@ function Preloader() {
 		drawPercent(loadedFiles / totalFiles * 100);
 		if(assets.getAssetsLength()) {
 			assets.loadNextAsset();
-		} else {
-			console.log("All assets loaded");
+		} else if(loadedFiles === totalFiles) {
+			console.log("All loaded");
 			drawPercent(100);
 			$(instance).trigger(CustomEvent.ON_PRELOADER_COMPLETE);
+		} else {
+			console.log("All assets loaded");
+			$(instance).trigger(CustomEvent.ON_ALL_ASSETS_LOADED);
 		}
 
 	}
