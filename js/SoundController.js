@@ -2,9 +2,6 @@
  * Created by sergeykrivtsov on 5/27/15.
  */
 function SoundController() {
-	var shootSounds = [];
-	var reloadSounds = [];
-	var reloadPaths = ["reload01", 'reload02'];
 	var musicSwitcher = $("#musicSwitcher");
 	var shootingSwitcher = $("#shootingSwitcher");
 	var musicToggle = localStorage.musicToggle || "on";
@@ -16,15 +13,17 @@ function SoundController() {
 	var instance = this;
 	var assets = Assets.getInstance();
 	var bgMusic = assets.getAssetByName("bgmusic");
+	var shootSounds = assets.getAssetByName("shoot");
+	var reloadSounds = assets.getAssetByName("reload");
 	bgMusic.loop = true;
 
 
 	this.playShoot = function() {
-		//playSound(SOUND_SHOOT);
+		playSound(SOUND_SHOOT);
 	};
 
 	this.playReload = function() {
-		//playSound(SOUND_RELOAD)
+		playSound(SOUND_RELOAD)
 	};
 
 	this.playBackgroundMusic = function() {
@@ -56,30 +55,12 @@ function SoundController() {
 		audio.play();
 	}
 
-	function loadSounds(paths, list) {
-		for(var i = 0; i < paths.length; i++) {
-			var audio = document.createElement('audio');
-			var path = 'assets/sounds/' + paths[i] + '.mp3';
-			audio.autoplay = false;
-			audio.src = path;
-			audio.addEventListener("canplay", function(event) {
-				audio = event.target;
-				audio.removeEventListener("canplay", event.callee);
-				list.push(audio);
-				if(shootPaths.length === shootSounds.length && reloadPaths.length === reloadSounds.length) {
-					$(instance).trigger(CustomEvent.ON_ALL_SOUNDS_LOADED);
-				}
-			});
-			audio.load();
-		}
-	}
-
 	function onSoundEnded() {
 		var audio = event.target;
 		audio.removeEventListener('ended', onSoundEnded);
 	}
 
-	musicSwitcher.on("click", toggleMusicSwitcherHandler);
+	musicSwitcher.on("click", toggleMusicSwitcher);
 	shootingSwitcher.on("click", toggleShootingSwitcher);
 
 	/**
@@ -87,7 +68,8 @@ function SoundController() {
 	 * @param event
 	 */
 
-	function toggleMusicSwitcherHandler(event) {
+	function toggleMusicSwitcher(event) {
+		event.preventDefault();
 		if(musicToggle === TOGGLE_ON) {
 			musicToggle = TOGGLE_OFF;
 			bgMusic.pause();
@@ -101,6 +83,7 @@ function SoundController() {
 	}
 
 	function toggleShootingSwitcher(event) {
+		event.preventDefault();
 		shootingToggle = shootingToggle === TOGGLE_ON ? TOGGLE_OFF : TOGGLE_ON;
 		localStorage.shootingToggle = shootingToggle;
 		setSoundControllers();

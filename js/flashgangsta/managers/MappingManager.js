@@ -1,11 +1,11 @@
 /**
- * Created by sergeykrivtsov on 07/07/15.
- * @version 0.03
+ * Created by sergeykrivtsov on 22/08/15.
+ * @version 0.04
  * @contacts flashgangsta@gmail.com | https://bitbucket.org/flashgangsta/flashgangsta-js
  */
 
 function MappingManager() {
-
+	throw new Error("MathUtil is static class and has now be initiliazed");
 }
 
 /**
@@ -145,4 +145,26 @@ MappingManager.roundPositionPoint = function(target, method) {
 		left: method(targetPosition.left),
 		top: method(target.top)
 	});
-}
+};
+
+/**
+ *
+ * @param target
+ * @param area
+ */
+
+MappingManager.setScaleFillArea = function(target, area) {
+	target = $(target);
+	area = $(area);
+
+	var scaleX = area.width() / target.width();
+	var scaleY = area.height() / target.height();
+
+	if(scaleX >= scaleY) {
+		target.width(Math.ceil(area.width()));
+		target.height(Math.ceil(target.height() * scaleX));
+	} else {
+		target.height(Math.ceil(area.height()));
+		target.width(Math.ceil(target.width() * scaleY));
+	}
+};

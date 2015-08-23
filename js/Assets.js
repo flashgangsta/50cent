@@ -23,9 +23,19 @@ function Assets() {
 	queue.push(loadSound, soundsFolder + "shoot04.mp3");
 	queue.push(loadSound, soundsFolder + "reload01.mp3");
 	queue.push(loadSound, soundsFolder + "reload02.mp3");
-	queue.push(loadImage, imagesFolder + "bullet01.png");
-	queue.push(loadImage, imagesFolder + "bullet02.png");
-	queue.push(loadImage, imagesFolder + "bullet03.png");
+	if(App.getRatio() === 1) {
+		queue.push(loadImage, imagesFolder + "bullet_x1_01.png");
+		queue.push(loadImage, imagesFolder + "bullet_x1_02.png");
+		queue.push(loadImage, imagesFolder + "bullet_x1_03.png");
+		queue.push(loadImage, imagesFolder + "logo_x1_.png");
+		queue.push(loadImage, imagesFolder + "popupCloseCross_x1_.png");
+	} else {
+		queue.push(loadImage, imagesFolder + "bullet_x2_01.png");
+		queue.push(loadImage, imagesFolder + "bullet_x2_02.png");
+		queue.push(loadImage, imagesFolder + "bullet_x2_03.png");
+		queue.push(loadImage, imagesFolder + "logo_x2_.png");
+		queue.push(loadImage, imagesFolder + "popupCloseCross_x2_.png");
+	}
 	queue.push(loadVideo, videosFolder + "bgvideo.mp4", "bgVideoHolder", "bgVideoSrc");
 
 	/**
@@ -129,7 +139,6 @@ function Assets() {
 				assets[name] = [];
 			}
 			assets[name].push(element);
-
 		}
 	}
 

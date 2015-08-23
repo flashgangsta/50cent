@@ -10,6 +10,7 @@ function CurrenciesPopup() {
 	var instance = this;
 	var currentCurrencyCode;
 	var currentButton;
+	var closeCrossImage = Assets.getInstance().getAssetByName(App.getRatio() === 1 ? "popupCloseCross_x1_" : "popupCloseCross_x2_");
 	var currenciesCountiresByCode = {
 		RUB: "russia|ruble",
 		BYR: "belarus|ruble",
@@ -21,10 +22,12 @@ function CurrenciesPopup() {
 		INR: "india|rupee",
 		JPY: "japan|yen",
 		EGP: "egypt|pound",
-		ZWD: "zimbabwe|dollar"
+		KZT: "kazakhstan|tenge"
 	};
 	var currenciesCodesByCountries = {};
 	var currenciesNamesByCode = {};
+
+	closeCross.append(closeCrossImage)
 
 	alignItems();
 

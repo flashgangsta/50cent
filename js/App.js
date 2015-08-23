@@ -7,19 +7,18 @@ App.getRatio = function() {
 }
 
 function App() {
-	console.log("new App();");
 	<!--TODO: убедиться что закомменченные функции ненужны и удалить ненужные-->
 	var stage = $(window);
 	var body = $('body');
 	var content = $("#contentHolder")
 	var popupBackstage = $("#popupBackstage");
-	var header = new Header();
+	var header;
 	var soundController;
+	var currenciesPopup;
 	var videoController;
-	var currencySelector = new CurrencySelector();
-	var layout = new Layout();
-	var currencyConverter = new CurrencyConverter();
-	var currenciesPopup = new CurrenciesPopup();
+	var currencySelector
+	var layout;
+	var currencyConverter;
 	var currentCurrency = localStorage.currentCurrency || "RUB";
 	var currentCurrencyName;
 	var lastCurrentCurrency = "" + currentCurrency ;
@@ -37,23 +36,27 @@ function App() {
 
 		soundController = new SoundController();
 		videoController = new VideoController();
+		currenciesPopup = new CurrenciesPopup();
+		header = new Header();
+		currencySelector = new CurrencySelector();
+		layout = new Layout();
+		content.show();
+		popupBackstage.hide();
+		currenciesPopup.hide();
+		videoController.playBackgroundVideo();
+		soundController.playBackgroundMusic();
 
-		$(header).on(CustomEvent.ON_HEADER_LOGO_LOADED, layout.onStageResized);
 		$(currencySelector).on(CustomEvent.ON_CURRENCY_SELECTOR_CLICKED, onCurrencySelectorClicked);
 		$(currenciesPopup).on(CustomEvent.ON_NEW_CURRENCY_SELECTED, onNewCurrencySelected);
 		$(currenciesPopup).on(CustomEvent.ON_CURRENCY_POPUP_HIDE_CALLED, onCurrencyPopupHideCalled);
-
-		stage.resize(onStageResized);
 		popupBackstage.on("click", onPopupBackstageClicked);
 		currenciesPopup.setCurrentCurrencyCode(currentCurrency);
 		currentCurrencyName = currenciesPopup.getCurrenctCurrencyName();
+
 		onNewCurrencySelected();
-		popupBackstage.hide();
-		currenciesPopup.hide();
+
+		stage.resize(onStageResized);
 		onStageResized();
-		content.show();
-		videoController.playBackgroundVideo();
-		soundController.playBackgroundMusic();
 	};
 
 	/**
@@ -61,6 +64,7 @@ function App() {
 	 */
 
 	function allAssetsLoaded() {
+		currencyConverter = new CurrencyConverter()
 		$(currencyConverter).on(CustomEvent.ON_CURRENCY_RATE_RESPONSE, onCurrencyRatesProcessedFirstTime);
 		currencyConverter.getCurrenciesRates();
 	}
@@ -97,7 +101,7 @@ function App() {
 
 	function onCurrencyRatesProcessed(event, data) {
 		currencyRates = data;
-		drawCurrency();
+		//drawCurrency();
 	}
 
 	/**
@@ -119,6 +123,7 @@ function App() {
 	 */
 
 	function onCurrencySelectorClicked(event) {
+		console.log(onCurrencySelectorClicked);
 		event.stopImmediatePropagation();
 		currenciesPopup.show();
 		popupBackstage.show();
@@ -137,6 +142,7 @@ function App() {
 		header.onStageResized(event);
 		currenciesPopup.onStageResized(event);
 		layout.onStageResized(event);
+		videoController.onStageResized(event);
 	}
 
 	/**
@@ -163,6 +169,7 @@ function App() {
 		}
 		currencySelector.setCurrentCurrencyCountry(currenciesPopup.getCurrenctCurrencyCountryName());
 		soundController.playReload();
+		drawCurrency();
 	}
 
 	/**

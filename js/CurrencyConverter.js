@@ -3,7 +3,7 @@
  */
 
 function CurrencyConverter() {
-	var currenciesList = ["RUB", "BYR", "UAH", "HUF", "CNY", "BRL", "AUD", "INR", "JPY", "EGP"];
+	var currenciesList = ["RUB", "BYR", "UAH", "HUF", "CNY", "BRL", "AUD", "INR", "JPY", "EGP", "KZT"];
 	var apiURL = 'http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.xchange where pair in (%currencies%)&env=store://datatables.org/alltableswithkeys&format=json';
 	var mainCurrency = "USD";
 	var currenciesForExchange = [];

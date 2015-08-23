@@ -29,5 +29,5 @@ function Bullets() {
 		return bullets[random].clone();
 	}
 
-	loadBullets();
+	//loadBullets();
 }

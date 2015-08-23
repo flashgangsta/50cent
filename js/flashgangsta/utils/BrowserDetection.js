@@ -6,12 +6,10 @@
 
 
 BrowserDetection.getBrowser = function() {
-	console.log("not changed getBrowser");
 	return new BrowserDetection().browser;
 };
 
 BrowserDetection.getBrowserVersion = function() {
-	console.log("not changed getBrowserVersion");
 	return new BrowserDetection().version;
 };
 

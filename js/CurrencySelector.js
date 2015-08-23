@@ -7,10 +7,7 @@ function CurrencySelector() {
 	var instance = this;
 	selectorButton.on("click", onCurrencySelectorClicked);
 
-	this.getButtonID = function() {
-		<!--TODO: проверить нужна ли эта функция -->
-		return selectorButton.attr('id');
-	}
+	selectorButton[0].style.cursor = "pointer";
 
 	this.setCurrentCurrencyCountry = function(name) {
 		selectorButton.text(name);

@@ -4,41 +4,43 @@
 
 function Header() {
 	var stage = $(window);
-	var logo = $("#headerLogo");
-	var headerLogoPrefix = $("#headerLogoPrefix");
-	var headerCurrencySelectorBlock = $("#headerCurrencySelectorBlock");
-	var margin = 15;
+	var headerHolder = $("#header");
+	var logo;
+	var headerLogoPrefix;
 	var logoTopMargin = 35;
-	var instance = this;
+	var headerCurrencySelectorBlock;
+	var margin = 15;
+	var logoImage = Assets.getInstance().getAssetByName(App.getRatio() === 1 ? "logo_x1_" : "logo_x2_");
 
-	logo.load(onHeaderLogoLoad);
+	headerHolder.append('<span id="headerLogoPrefix">they call</span>')
+	headerHolder.append($(logoImage));
+	headerHolder.append('<span id="headerCurrencySelectorBlock"><span id="currencyButtonPrefix"> in </span><a id="currencySelectorButton" class="customUnderline">%currency%</a> </span>');
+	logoImage.id = "headerLogo";
+	logo = $("#headerLogo");
+	headerLogoPrefix = $("#headerLogoPrefix");
+	headerCurrencySelectorBlock = $("#headerCurrencySelectorBlock");
 
 	this.onStageResized = function(event) {
 		alignHeaderItems();
 	}
 
 	function alignHeaderItems() {
+		MappingManager.alignCenterX(logoImage, stage);
+
 		logo.offset({
 			top: logoTopMargin
 		});
 
-		MappingManager.alignCenterX(logo, stage);
+		headerCurrencySelectorBlock.offset({
+			left: Math.round(MappingManager.getRight(logo) + margin),
+			top: MappingManager.alignCenterY(headerCurrencySelectorBlock, logo)
+		});
 
 		headerLogoPrefix.offset({
-			left: Math.round(logo.position().left - headerLogoPrefix.width() - margin)
+			left: Math.round(logo.position().left - headerLogoPrefix.width() - margin),
+			top: headerCurrencySelectorBlock.position().top
+
 		});
-
-		headerCurrencySelectorBlock.offset({
-			left: MappingManager.getRight(logo) + margin
-		});
-
-		MappingManager.alignCenterY(headerLogoPrefix, logo);
-		MappingManager.alignCenterY(headerCurrencySelectorBlock, logo);
-	}
-
-	function onHeaderLogoLoad(event) {
-		alignHeaderItems();
-		$(instance).trigger(CustomEvent.ON_HEADER_LOGO_LOADED);
 	}
 
 	alignHeaderItems();

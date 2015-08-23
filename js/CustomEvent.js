@@ -3,7 +3,6 @@
  */
 
 
-CustomEvent.ON_HEADER_LOGO_LOADED = "onHeaderLogoLoadedEvent";
 CustomEvent.ON_CURRENCY_RATE_RESPONSE = "onCurrencyRateResponseEvent";
 CustomEvent.ON_CURRENCY_SELECTOR_CLICKED = "onCurrencyConverterClickedEvent";
 CustomEvent.ON_NEW_CURRENCY_SELECTED = "onNewCurrencySelectedEvent";
