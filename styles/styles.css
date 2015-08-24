@@ -125,6 +125,8 @@ html, body {
 
 #sharingPanel {
     cursor: pointer;
+    display: inline-block;
+    text-align: center;
 }
 
 #layoutHolder {
@@ -195,6 +197,13 @@ html, body {
     text-align: center;
     font-size: 45px;
     text-decoration: none;
+}
+
+#emailHolder {
+    display: inline;
+    position: relative;
+    text-align: center;
+    top: -4px;
 }
 
 .currenciesHolderButton {

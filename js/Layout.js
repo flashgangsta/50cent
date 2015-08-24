@@ -54,40 +54,48 @@ function Layout() {
 	 */
 
 	function drawCurrencyValue(value) {
+		console.log("drawCurrencyValue(value)", value);
 		var fontSize;
 		var fontY;
-		value = value.toString();
 
-		if(value.length === 3) {
-			fontSize = 200;
-			fontY = 60;
-		} else if(value.length === 4) {
-			fontSize = 130;
-			fontY = 120;
-			value = value.substr(0, 1) + separator + value.substr(1);
-		} else if(value.length === 5) {
-			fontSize = 110;
-			fontY = 140;
-			value = value.substr(0, 2) + separator + value.substr(2);
-		} else if(value.length === 6) {
-			fontSize = 90;
-			fontY = 155;
-			value = value.substr(0, 3) + separator + value.substr(3);
-		} else if(value.length === 7) {
-			fontSize = 70;
-			fontY = 170;
-			value = value.substr(0, 1) + separator + value.substr(1, 3) + separator + value.substr(4);
-		} else if(value.length === 8) {
-			fontSize = 65;
-			fontY = 175;
-			value = value.substr(0, 2) + separator + value.substr(2, 3) + separator + value.substr(5);
-		} else if(value.length === 9) {
-			fontSize = 60;
-			fontY = 180;
-			value = value.substr(0, 3) + separator + value.substr(3, 3) + separator + value.substr(6);
-		} else if(value.length < 3) {
-			fontSize = 290;
-			fontY = 5;
+		if(value < 1) {
+			fontSize = 180;
+			fontY = 70;
+			value = value.toFixed(2).toString();
+		} else {
+			value = Math.round(value).toString();
+
+			if(value.length === 3) {
+				fontSize = 200;
+				fontY = 60;
+			} else if(value.length === 4) {
+				fontSize = 130;
+				fontY = 120;
+				value = value.substr(0, 1) + separator + value.substr(1);
+			} else if(value.length === 5) {
+				fontSize = 110;
+				fontY = 140;
+				value = value.substr(0, 2) + separator + value.substr(2);
+			} else if(value.length === 6) {
+				fontSize = 90;
+				fontY = 155;
+				value = value.substr(0, 3) + separator + value.substr(3);
+			} else if(value.length === 7) {
+				fontSize = 70;
+				fontY = 170;
+				value = value.substr(0, 1) + separator + value.substr(1, 3) + separator + value.substr(4);
+			} else if(value.length === 8) {
+				fontSize = 65;
+				fontY = 175;
+				value = value.substr(0, 2) + separator + value.substr(2, 3) + separator + value.substr(5);
+			} else if(value.length === 9) {
+				fontSize = 60;
+				fontY = 180;
+				value = value.substr(0, 3) + separator + value.substr(3, 3) + separator + value.substr(6);
+			} else if(value.length < 3) {
+				fontSize = 290;
+				fontY = 5;
+			}
 		}
 
 		layoutContext.font = fontSize + "px Impact";
@@ -103,7 +111,11 @@ function Layout() {
 	 */
 
 	function drawCurrencyName(value) {
-		layoutContext.font = "91px Impact";
+		var fontSize = 91;
+		if(value.length >= 7) {
+			fontSize = 80;
+		}
+		layoutContext.font = fontSize + "px Impact";
 		layoutContext.fillStyle = "#FFFFFF";
 		layoutContext.textAlign = "center";
 		layoutContext.textBaseline = "top";

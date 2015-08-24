@@ -2,6 +2,10 @@
  * Created by sergeykrivtsov on 7/15/15.
  */
 
+CurrenciesPopup.getInstance = function () {
+	return null;
+}
+
 function CurrenciesPopup() {
 	var popup = $("#currenciesPopup");
 	var closeCross = $("#closeCross");
@@ -12,17 +16,18 @@ function CurrenciesPopup() {
 	var currentButton;
 	var closeCrossImage = Assets.getInstance().getAssetByName(App.getRatio() === 1 ? "popupCloseCross_x1_" : "popupCloseCross_x2_");
 	var currenciesCountiresByCode = {
-		RUB: "russia|ruble",
-		BYR: "belarus|ruble",
-		UAH: "ukraine|hryvnia",
-		HUF: "hungary|forint",
-		CNY: "china|yuan",
-		BRL: "brazil|real",
-		AUD: "australia|dollar",
-		INR: "india|rupee",
-		JPY: "japan|yen",
-		EGP: "egypt|pound",
-		KZT: "kazakhstan|tenge"
+		RUB: "russia|rubles",
+		BYR: "belarus|rubles",
+		UAH: "ukraine|hryvnias",
+		HUF: "hungary|forints",
+		CNY: "china|yuans",
+		BRL: "brazil|reals",
+		AUD: "australia|dollars",
+		INR: "india|rupees",
+		JPY: "japan|yens",
+		EGP: "egypt|pounds",
+		KZT: "kazakhstan|tenges",
+		EUR: "eurozone|euros"
 	};
 	var currenciesCodesByCountries = {};
 	var currenciesNamesByCode = {};
@@ -83,6 +88,10 @@ function CurrenciesPopup() {
 		return currenciesNamesByCode[currentCurrencyCode];
 	}
 
+	this.getCurrenctCurrencyName = function() {
+		return currenciesNamesByCode[currentCurrencyCode];
+	}
+
 	<!--TODO: Убедиться что функция нужна-->
 	this.getCountryNameByCurrencyCode = function(code) {
 		code = code.toUpperCase();
@@ -132,6 +141,7 @@ function CurrenciesPopup() {
 	function onButtonClicked(event) {
 		event.preventDefault();
 		onCurrencySelect($(event.target));
+		instance.hide();
 	}
 
 	function updateInteractive() {
@@ -147,6 +157,10 @@ function CurrenciesPopup() {
 			}
 			button.on("click", onButtonClicked);
 		}
+	}
+
+	CurrenciesPopup.getInstance = function () {
+		return instance;
 	}
 
 	closeCross.on("click", function () {

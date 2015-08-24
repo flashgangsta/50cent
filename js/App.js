@@ -112,7 +112,7 @@ function App() {
 		if(currenciesPopup.isOpen()) {
 			return;
 		}
-		var value = Math.round(currencyRates[currentCurrency] / 2);
+		var value = currencyRates[currentCurrency] / 2;
 		layout.setCurrency(value, currencyNameChanged ? currentCurrencyName : null);
 		currentCurrencyName = false;
 	}
@@ -168,7 +168,6 @@ function App() {
 			event.stopImmediatePropagation();
 		}
 		currencySelector.setCurrentCurrencyCountry(currenciesPopup.getCurrenctCurrencyCountryName());
-		soundController.playReload();
 		drawCurrency();
 	}
 
