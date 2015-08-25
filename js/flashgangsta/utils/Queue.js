@@ -5,6 +5,7 @@
  */
 
 function Queue() {
+	console.log("new Queue()");
 	var instance = this;
 	var methods = [];
 	var args = [];
@@ -26,6 +27,7 @@ function Queue() {
 		if (!methods.length) return;
 		var method = methods.shift();
 		var argsList = args.shift();
+		console.log("apply queue", argsList);
 		method.apply(null, argsList);
 	};
 

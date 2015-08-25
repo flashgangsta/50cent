@@ -84,7 +84,7 @@ html, body {
 
 .customUnderline {
     text-decoration: none;
-    background: url(../assets/bitmaps/dotted_line_x1_.png) repeat-x 100% 100%;
+    background: url(../assets/images/dotted_line_x1_.png) repeat-x 100% 100%;
     padding-bottom: 2px;
     white-space: nowrap;
 }

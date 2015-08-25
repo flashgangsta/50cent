@@ -3,6 +3,7 @@
  */
 
 function Preloader() {
+	console.log("Preloader");
 	var assets = new Assets();
 	var instance = this;
 	var ratio = App.getRatio();

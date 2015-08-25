@@ -21,7 +21,7 @@ function CurrenciesPopup() {
 		UAH: "ukraine|hryvnias",
 		HUF: "hungary|forints",
 		CNY: "china|yuans",
-		BRL: "brazil|reals",
+		BRL: "brazil|real",
 		AUD: "australia|dollars",
 		INR: "india|rupees",
 		JPY: "japan|yens",

@@ -7,6 +7,9 @@ App.getRatio = function() {
 }
 
 function App() {
+
+	console.log("App");
+
 	<!--TODO: убедиться что закомменченные функции ненужны и удалить ненужные-->
 	var stage = $(window);
 	var body = $('body');
@@ -191,7 +194,6 @@ function App() {
 	/**
 	 *
 	 */
-
 	content.hide();
 	preloader = new Preloader();
 	$(preloader).on(CustomEvent.ON_PRELOADER_COMPLETE, onPreloaderComplete);

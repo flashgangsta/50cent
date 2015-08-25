@@ -5,6 +5,7 @@
 Assets.getInstance = function(){return null};
 
 function Assets() {
+	console.log("new Assets()");
 	var queue = new Queue();
 	var soundsFolder = "assets/sounds/";
 	var imagesFolder = "assets/images/";
@@ -23,6 +24,7 @@ function Assets() {
 	queue.push(loadSound, soundsFolder + "shoot04.mp3");
 	queue.push(loadSound, soundsFolder + "reload01.mp3");
 	queue.push(loadSound, soundsFolder + "reload02.mp3");
+
 	if(App.getRatio() === 1) {
 		queue.push(loadImage, imagesFolder + "bullet_x1_01.png");
 		queue.push(loadImage, imagesFolder + "bullet_x1_02.png");
@@ -68,15 +70,64 @@ function Assets() {
 	 */
 
 	function loadSound(path) {
-		var audio = new Audio();//document.createElement("audio")
-		audio.autoplay = false;
-		audio.src = path;
-		audio.addEventListener("canplaythrough", function(event) {
+		console.log("loadSound", path);
+		var audio = new Audio();
+		var loadStarted = false;
+		var progressTimestamp = getTimestamp();
+		var checkProgressInterval;
+
+		function onProgress(event) {
+			console.log("progress", event);
+			progressTimestamp = getTimestamp();
+		}
+
+		function onCanPlayThrough(event) {
+			console.log("audioLoaded", path);
 			audio = event.target;
 			rememberElement(audio, path);
-			audio.removeEventListener("canplaythrough", arguments.callee);
+			audio.removeEventListener("progress", onProgress);
+			audio.removeEventListener("canplaythrough", onCanPlayThrough);
+			if(checkProgressInterval) clearInterval(checkProgressInterval);
 			$(instance).trigger(CustomEvent.ON_ASSET_ELEMENT_LOADED);
-		});
+		}
+
+		function onLoadStart(event) {
+			audio.removeEventListener("loadstart", onLoadStart);
+			console.log(path, "load started");
+			progressTimestamp = getTimestamp();
+			console.log(">>>>>>>>>>>setInterval", path);
+			checkProgressInterval = setInterval(function() {
+				console.log("checkProgressInterval", path, checkProgressInterval);
+				if(getTimestamp() - progressTimestamp > 2000) {
+					clearInterval(checkProgressInterval);
+					audio.removeEventListener("progress", onProgress);
+					audio.removeEventListener("canplaythrough", onCanPlayThrough);
+					$(audio).remove();
+					delete audio;
+					console.log("!!!!!!!	reload", path);
+					loadSound(path);
+				}
+			}, 300);
+			loadStarted = true;
+		}
+
+		function onError(event) {
+			audio.removeEventListener("error", onError);
+			audio.removeEventListener("loadstart", onLoadStart);
+			audio.removeEventListener("progress", onProgress);
+			audio.removeEventListener("canplaythrough", onCanPlayThrough);
+			console.log(path, "error", event);
+			loadSound(path);
+		}
+
+		audio.addEventListener("loadstart", onLoadStart);
+		audio.addEventListener("progress", onProgress);
+		audio.addEventListener("canplaythrough", onCanPlayThrough);
+		audio.addEventListener("error", onError);
+
+		audio.autoplay = false;
+		audio.src = path;
+
 		audio.load();
 	}
 
@@ -150,5 +201,9 @@ function Assets() {
 
 	function getLastCharNum(value) {
 		return Number(value.charAt(value.length  - 1));
+	}
+
+	function getTimestamp() {
+		return new Date().getTime();
 	}
 }
