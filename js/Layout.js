@@ -12,8 +12,12 @@ function Layout() {
 	var layoutOriginalHeight = 451;
 	var layoutContext = layout[0].getContext("2d");
 	var rectThickness = 20;
-	var CURRENCY_NAME_Y = 320;
+	var CURRENCY_NAME_Y = 310;
 	var separator = " ";
+	var lastCurrencyValue = 0;
+	var bulletsList = Assets.getInstance().getAssetByName("bullet_x" + App.getRatio() + "_");
+	var instance = this;
+	var layoutScale;
 
 	/**
 	 *
@@ -31,12 +35,24 @@ function Layout() {
 	 */
 
 	this.setCurrency = function(value, name) {
-		var rect = new Rectangle(rectThickness, rectThickness, layoutOriginalWidth - rectThickness);
-		rect.height = name ? layoutOriginalHeight - rectThickness : CURRENCY_NAME_Y;
-		layoutContext.clearRect(rect.x, rect.y, rect.width, rect.height);
 		drawCurrencyValue(value);
-		if(name) drawCurrencyName(name);
+		if(name) {
+			var rect = new Rectangle(rectThickness, rectThickness + CURRENCY_NAME_Y - 10, layoutOriginalWidth - rectThickness, layoutOriginalHeight - rectThickness - CURRENCY_NAME_Y - 10);
+			layoutContext.clearRect(rect.x, rect.y, rect.width, rect.height);
+			drawCurrencyName(name);
+		}
 	};
+
+	/**
+	 *
+	 */
+
+	this.addBulletHole = function() {
+		var point = getShootPoint();
+		var random = MathUtil.getRandomInt(0, bulletsList.length - 1);
+		var bullet = $(bulletsList[random]).clone();
+		layoutContext.drawImage(bullet.clone()[0], Math.round(point.x - 19 * layoutScale), Math.round(point.y - 18 * layoutScale));
+	}
 
 	/**
 	 *
@@ -54,7 +70,6 @@ function Layout() {
 	 */
 
 	function drawCurrencyValue(value) {
-		console.log("drawCurrencyValue(value)", value);
 		var fontSize;
 		var fontY;
 
@@ -98,11 +113,22 @@ function Layout() {
 			}
 		}
 
+		if(value === lastCurrencyValue) {
+			return;
+		}
+
+		lastCurrencyValue = value;
+
+		var rect = new Rectangle(rectThickness, rectThickness, layoutOriginalWidth - rectThickness, CURRENCY_NAME_Y - 10);
+		layoutContext.clearRect(rect.x, rect.y, rect.width, rect.height);
+
 		layoutContext.font = fontSize + "px Impact";
 		layoutContext.fillStyle = "#FFFFFF";
 		layoutContext.textAlign = "center";
 		layoutContext.textBaseline = "top";
 		layoutContext.fillText(value, layoutHTML.width / 2, fontY);
+
+		$(instance).trigger(CustomEvent.NEW_CURRENCY_VALUE_DRAWN);
 	}
 
 	/**
@@ -132,7 +158,6 @@ function Layout() {
 		var headerLogoBottom = MappingManager.getBottom("#headerLogo");
 		var soundControllerPanelTop = $("#soundControllPanel").position().top;
 		var layoutMaxHeight
-		var layoutScale;
 		var margin;
 
 		layoutMaxHeight = Math.round(soundControllerPanelTop - headerLogoBottom);
@@ -147,6 +172,20 @@ function Layout() {
 		layoutHolder.offset({
 			top: Math.round(headerLogoBottom + margin)
 		});
+	}
+
+	function getShootPoint() {
+		var point = new Point();
+		var pointData;
+		var hex;
+		while(hex !== "ffffff") {
+			point.x = MathUtil.getRandomInt(1,layoutOriginalWidth);
+			point.y = MathUtil.getRandomInt(1, layoutOriginalHeight);
+			console.log(point, layout.width() + "x" + layout.height());
+			pointData = layoutContext.getImageData(point.x, point.y, 1, 1).data;
+			hex = ("000000" + Drawing.rgbToHex(pointData[0], pointData[1], pointData[2])).slice(-6);
+		}
+		return point;
 	}
 
 

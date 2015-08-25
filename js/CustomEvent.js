@@ -10,6 +10,7 @@ CustomEvent.ON_CURRENCY_POPUP_HIDE_CALLED = "onCurrencyPopupHideCalledEvent";
 CustomEvent.ON_PRELOADER_COMPLETE = "onPreloaderComplete";
 CustomEvent.ON_ASSET_ELEMENT_LOADED = "onAssetElementLoaded";
 CustomEvent.ON_ALL_ASSETS_LOADED = "onAllAssetsLoaded";
+CustomEvent.NEW_CURRENCY_VALUE_DRAWN = "onNewCurrencyValueDrawn";
 
 function CustomEvent() {
 

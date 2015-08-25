@@ -23,6 +23,8 @@ function Rectangle(x, y, width, height) {
 		return new Rectangle(position.left, position.top, target.width(), target.height());
 
 	}
+
+	return this;
 }
 
 Rectangle.prototype.toString = function() {

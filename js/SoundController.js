@@ -30,7 +30,7 @@ function SoundController() {
 		if(musicToggle === TOGGLE_ON) {
 			bgMusic.play();
 		}
-	}
+	};
 
 	function playSound(soundID) {
 		var soundsList;

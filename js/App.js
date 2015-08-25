@@ -3,7 +3,7 @@
  */
 
 App.getRatio = function() {
-	return window.devicePixelRatio;
+	return Math.min(window.devicePixelRatio, 2);
 }
 
 function App() {
@@ -52,14 +52,15 @@ function App() {
 		$(currencySelector).on(CustomEvent.ON_CURRENCY_SELECTOR_CLICKED, onCurrencySelectorClicked);
 		$(currenciesPopup).on(CustomEvent.ON_NEW_CURRENCY_SELECTED, onNewCurrencySelected);
 		$(currenciesPopup).on(CustomEvent.ON_CURRENCY_POPUP_HIDE_CALLED, onCurrencyPopupHideCalled);
+		$(layout).on(CustomEvent.NEW_CURRENCY_VALUE_DRAWN, openFire)
 		popupBackstage.on("click", onPopupBackstageClicked);
 		currenciesPopup.setCurrentCurrencyCode(currentCurrency);
 		currentCurrencyName = currenciesPopup.getCurrenctCurrencyName();
 
-		onNewCurrencySelected();
-
 		stage.resize(onStageResized);
 		onStageResized();
+
+		onNewCurrencySelected();
 	};
 
 	/**
@@ -104,7 +105,7 @@ function App() {
 
 	function onCurrencyRatesProcessed(event, data) {
 		currencyRates = data;
-		//drawCurrency();
+		drawCurrency();
 	}
 
 	/**
@@ -112,7 +113,7 @@ function App() {
 	 */
 
 	function drawCurrency() {
-		if(currenciesPopup.isOpen()) {
+		if(!layout || ! currenciesPopup || currenciesPopup.isOpen()) {
 			return;
 		}
 		var value = currencyRates[currentCurrency] / 2;
@@ -186,9 +187,22 @@ function App() {
 			currentCurrencyName = currenciesPopup.getCurrenctCurrencyName();
 			currencyNameChanged = true;
 			lastCurrentCurrency = currentCurrency;
-			soundController.playShoot();
 			drawCurrency();
 		}
+	}
+
+	function openFire() {
+		var shootsNum = 0;
+		var shootsMax = MathUtil.getRandomInt(3, 7);
+		var interval = setInterval(shootIntervalHandler, 350);
+		function shootIntervalHandler() {
+			soundController.playShoot();
+			layout.addBulletHole();
+			if(++shootsNum === shootsMax) {
+				clearInterval(interval);
+			}
+		}
+		shootIntervalHandler();
 	}
 
 	/**

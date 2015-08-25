@@ -189,6 +189,7 @@ function Assets() {
 			if(!assets[name]) {
 				assets[name] = [];
 			}
+			console.log("		########", name)
 			assets[name].push(element);
 		}
 	}
