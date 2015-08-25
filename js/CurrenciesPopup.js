@@ -141,6 +141,7 @@ function CurrenciesPopup() {
 	function onButtonClicked(event) {
 		event.preventDefault();
 		onCurrencySelect($(event.target));
+		localStorage.currentCurrency = currentCurrencyCode;
 		instance.hide();
 	}
 
